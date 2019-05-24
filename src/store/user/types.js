@@ -1,0 +1,1 @@
+const GOT_USER = 'USER/GOT_USER';
