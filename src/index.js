@@ -3,13 +3,14 @@ import { Provider } from 'react-redux';
 
 import App from './screens';
 import configureStore from './store';
-
-const store = configureStore();
-
+import { configureSocket } from './store/socket'
 // import configureLocalization, { fetchLocalization } from './localization';
 
 // configureLocalization();
 // fetchLocalization();
+
+const store = configureStore();
+configureSocket(store);
 
 export default class Root extends PureComponent {
 

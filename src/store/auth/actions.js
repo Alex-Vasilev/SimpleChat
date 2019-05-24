@@ -24,18 +24,19 @@ export function initAuth() {
   };
 }
 
-export function login() {
-  return function (dispatch, getState) {
-    getUserCredentials()
-      .then(res =>
-        getConversation()
-          .then(res => {
-            dispatch(gotMessages(res))
-            dispatch(navigate(ROUTES.CHAT))
-          })
-      )
-  }
-}
+
+// export function login() {
+//   return function (dispatch, getState) {
+//     getUserCredentials()
+//       .then(res =>
+//         getConversation()
+//           .then(res => {
+//             dispatch(gotMessages(res))
+//             dispatch(navigate(ROUTES.CHAT))
+//           })
+//       )
+//   }
+// }
 
 // export function auth() {
 //   return function (dispatch) {

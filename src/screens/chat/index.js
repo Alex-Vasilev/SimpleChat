@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { connect } from 'react-redux';
-// import { openChat, sendMessage } from '../../store';
+import { openChat, sendMessage } from '../../store/socket';
+
 
 
 class Chat extends PureComponent {
@@ -16,10 +17,11 @@ class Chat extends PureComponent {
     // }
 
     handleSend = (message) => {
-        // sendMessage(message.text, this.props.user, this.props.receiver);
+        sendMessage(message.text);
     }
 
     render() {
+        console.log(this.props.messages)
         return (
             <GiftedChat
                 messages={this.props.messages}
@@ -33,18 +35,7 @@ class Chat extends PureComponent {
 }
 
 export default connect((state, { navigation }) => ({
-    messages: [
-        {
-            _id: 1,
-            text: 'Hello developer',
-            createdAt: new Date(),
-            user: {
-                _id: 2,
-                name: 'React Native',
-                avatar: 'https://placeimg.com/140/140/any',
-            },
-        },
-    ], //state.messages,
+    messages: state.messages,
     user: state.user,
     // receiver: navigation.getParam('receivingUser')
 }))(Chat);

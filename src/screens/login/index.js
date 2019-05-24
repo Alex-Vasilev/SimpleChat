@@ -1,25 +1,11 @@
-// import React from 'react';
-import { View, Text, Touchable } from '../../components';
-import { StyleSheet, TextInput } from 'react-native'
-
-// // import { login } from '../store';
-
-
 import React, { PureComponent } from 'react';
-// import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native'
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
-
-import { initAuth, login } from '../../store/auth/actions';
-import { initApplication } from '../../store/app/actions';
-
-// import {  reset, navigate } from '../../store/navigation/actions';
-
-
+import { View, Text, Touchable } from '../../components';
+// import { login, register } from '../../store/auth/actions';
+import { login, register } from '../../store/socket';
 import * as COLORS from '../../constants/colors';
-import * as ROUTES from '../../constants/routes';
-
 
 
 class Login extends PureComponent {
@@ -36,7 +22,16 @@ class Login extends PureComponent {
     }
 
     handleSubmit = () => {
-        this.props.onLogin();
+        this.state.registration ?
+            this.props.onRegister()
+            :
+            this.props.onLogin();
+    }
+
+    handleToggleRegisrationOption = () => {
+        this.setState({
+            registration: !this.state.registration
+        })
     }
 
     render() {
@@ -62,8 +57,11 @@ class Login extends PureComponent {
                     onPress={this.handleSubmit}
                     style={styles.button}
                 >
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={styles.buttonText}> {this.state.registration ? 'Register' : 'Login'}</Text>
                 </Touchable>
+                <Text style={styles.text} onPress={this.handleToggleRegisrationOption}>
+                    {this.state.registration ? 'Go to login' : 'Go to registration'}
+                </Text>
             </View>
         )
     }
@@ -72,7 +70,8 @@ class Login extends PureComponent {
 export default connect(
     () => ({}),
     dispatch => ({
-        onLogin: () => dispatch(login())
+        onLogin: () => dispatch(login()),
+        onRegister: () => dispatch(register())
     })
 )(Login);
 

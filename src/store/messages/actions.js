@@ -8,7 +8,7 @@ const gotNewMessageAction = createAction(GOT_NEW_MESSAGE);
 
 export function gotMessages(messages) {
     return function (dispatch) {
-        return dispatch(gotMessagesAction(messages))
+        return dispatch(gotMessagesAction(messages.reverse()))
     };
 }
 
