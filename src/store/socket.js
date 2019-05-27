@@ -1,6 +1,8 @@
 import io from 'socket.io-client';
 import { gotMessages } from '../store/messages/actions'
 
+let token = ''
+
 const socket = io('http://localhost:5000');
 socket.connect();
 
@@ -17,11 +19,17 @@ export const login = (name, password) => {
     socket.emit('login', { name, password });
 }
 
-export const registration = () => {
+export const registration = (name, password) => {
     socket.emit('registration', { name, password });
 }
 
 export const configureSocket = function (store) {
+    socket.emit('authenticate', token)
+
+    socket.on('set token', token => {
+        token = token
+        socket.emit('authenticate', token)
+    })
 
     socket.on('userCreated', response => {
         const { user, users } = response;
@@ -41,4 +49,8 @@ export const configureSocket = function (store) {
     socket.on('incomingMessage', message => {
         store.dispatch(gotNewMessage(message));
     });
+
+    socket.on('set token', (token) => {
+       
+    })
 }

@@ -3,8 +3,7 @@ import { StyleSheet, TextInput } from 'react-native'
 import { connect } from 'react-redux';
 
 import { View, Text, Touchable } from '../../components';
-// import { login, register } from '../../store/auth/actions';
-import { login, register } from '../../store/socket';
+import { login, registration } from '../../store/socket';
 import * as COLORS from '../../constants/colors';
 
 
@@ -13,7 +12,8 @@ class Login extends PureComponent {
         super();
         this.state = {
             name: '',
-            password: ''
+            password: '',
+            isRegistration: false
         };
     }
 
@@ -22,19 +22,23 @@ class Login extends PureComponent {
     }
 
     handleSubmit = () => {
-        this.state.registration ?
-            this.props.onRegister()
+        const { isRegistration, name, password } = this.state
+
+        isRegistration ?
+            registration(name, password)
             :
-            this.props.onLogin();
+            login(name, password);
     }
 
     handleToggleRegisrationOption = () => {
         this.setState({
-            registration: !this.state.registration
+            isRegistration: !this.state.isRegistration
         })
     }
 
     render() {
+        const { isRegistration } = this.state
+
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>Enter your name and password:</Text>
@@ -57,10 +61,10 @@ class Login extends PureComponent {
                     onPress={this.handleSubmit}
                     style={styles.button}
                 >
-                    <Text style={styles.buttonText}> {this.state.registration ? 'Register' : 'Login'}</Text>
+                    <Text style={styles.buttonText}> {isRegistration ? 'Register' : 'Login'}</Text>
                 </Touchable>
                 <Text style={styles.text} onPress={this.handleToggleRegisrationOption}>
-                    {this.state.registration ? 'Go to login' : 'Go to registration'}
+                    {isRegistration ? 'Go to login' : 'Go to registration'}
                 </Text>
             </View>
         )
@@ -70,8 +74,6 @@ class Login extends PureComponent {
 export default connect(
     () => ({}),
     dispatch => ({
-        onLogin: () => dispatch(login()),
-        onRegister: () => dispatch(register())
     })
 )(Login);
 
