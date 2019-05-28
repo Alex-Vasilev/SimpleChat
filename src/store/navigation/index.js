@@ -2,7 +2,6 @@ import AppNavigator from '../../screens/navigator';
 
 import * as ROUTES from '../../constants/routes';
 
-console.log(1, AppNavigator)
 const initialState = AppNavigator.router.getStateForAction(
   AppNavigator.router.getActionForPathAndParams(ROUTES.LOADING),
 );

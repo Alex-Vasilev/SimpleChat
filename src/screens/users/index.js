@@ -1,78 +1,90 @@
 import React, { PureComponent } from 'react';
-import { View, Text, TouchableOpacity } from '../../components';
-import { StyleSheet } from 'react-native'
+import { StyleSheet, TextInput } from 'react-native';
 import { connect } from 'react-redux';
+import { Text, View, Touchable } from '../../components';
+import * as COLORS from '../../constants/colors';
+import { search } from '../../store/users/actions'
 
 class Users extends PureComponent {
-    constructor() {
-        super();
-    }
-
     openChat = (receivingUser) => {
         this.props.navigation.navigate('Chat', { receivingUser });
+    }
+
+    handleChange = (type, value) => {
+        this.setState({ [type]: value });
+    }
+
+    handleSubmit = () => {
+        const { name } = this.state
+        const { onSearch } = this.props
+
+        onSearch(name)
     }
 
     render() {
         return (
             <View style={styles.container}>
-                {
-                    this.props.users.map(user => (
-                        <View key={user.id} style={styles.userContainer}>
-                            <Text style={styles.name}>{user.name}</Text>
-                            <TouchableOpacity
-                                style={styles.buttonContainer}
-                                onPress={() => this.handleOpenChat(user)}
-                            >
-                                <Text style={styles.buttonText}>Chat</Text>
-                            </TouchableOpacity>
-                        </View>
-                    ))
-                }
+                <TextInput
+                    onChangeText={value => this.handleChange('name', value)}
+                    autoCapitalize='none'
+                    style={styles.input}
+                />
+                <Touchable
+                    onPress={this.handleSubmit}
+                    style={styles.button}
+                >
+                    <Text style={styles.buttonText}>Search</Text>
+                </Touchable>
             </View>
         );
     }
 }
 
 
-export default connect(state => ({
-    users: state.users.length ? state.users.filter(user => user.id !== state.user.id) : []
-}))(Users);
+export default connect(
+    state => ({
+        users: state.users
+    }),
+    dispatch => ({
+        onSearch: (name) => dispatch(search(name)),
+    }))(Users);
 
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'steelblue',
+        backgroundColor: COLORS.RED,
         height: '100%',
         width: '100%'
     },
-    userContainer: {
-        width: '90%',
-        borderWidth: 1,
-        borderColor: '#fff',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 20,
-        marginBottom: 20,
-        paddingTop: 20,
-        paddingBottom: 20
-    },
-    name: {
-        textAlign: 'center',
-        color: '#fff',
-        fontSize: 25,
+    text: {
+        fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 20
+        color: COLORS.WHITE
     },
-    buttonContainer: {
+    input: {
+        height: 40,
+        width: '90%',
+        borderColor: COLORS.TRANSPARENT,
+        backgroundColor: COLORS.WHITE,
+        borderRadius: 10,
+        color: COLORS.BLACK,
+        textAlign: 'center',
+        marginTop: 10
+    },
+    button: {
+        width: '75%',
+        backgroundColor: COLORS.WHITE,
         borderRadius: 50,
-        backgroundColor: '#fff',
-        paddingVertical: 15,
-        width: '75%'
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+        paddingVertical: 15
     },
     buttonText: {
-        color: 'steelblue',
-        textAlign: 'center'
+        color: COLORS.RED,
+        textAlign: 'center',
+        fontSize: 15,
+        fontWeight: 'bold',
     }
 });

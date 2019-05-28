@@ -1,7 +1,6 @@
 import * as ROUTES from '../../constants/routes';
+import { reset } from '../../store/navigation/actions';
 
-import { reset, navigate } from '../../store/navigation/actions';
-import {initAuth} from '../../store/auth/actions'
 
 export function initApplication() {
   return function (dispatch, getState) {

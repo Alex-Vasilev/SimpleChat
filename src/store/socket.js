@@ -3,27 +3,29 @@ import { gotMessages } from '../store/messages/actions'
 
 let token = ''
 
-const socket = io('http://localhost:5000');
+const socket = io('http://localhost:5000', {
+    query: { token: token }
+});
 socket.connect();
 
 
-export const openChat = users => {
+export function openChat(users) {
     socket.emit('chat', users);
 };
 
-export const sendMessage = (text, sender, receiver) => {
+export function sendMessage(text, sender, receiver) {
     socket.emit('send message', text);
 };
 
-export const login = (name, password) => {
+export function login(name, password) {
     socket.emit('login', { name, password });
 }
 
-export const registration = (name, password) => {
+export function registration(name, password) {
     socket.emit('registration', { name, password });
 }
 
-export const configureSocket = function (store) {
+export function configureSocket(store) {
     socket.emit('authenticate', token)
 
     socket.on('set token', token => {
@@ -51,6 +53,6 @@ export const configureSocket = function (store) {
     });
 
     socket.on('set token', (token) => {
-       
+
     })
 }

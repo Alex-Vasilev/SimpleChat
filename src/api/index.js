@@ -3,8 +3,6 @@ import isPlainObject from 'lodash/isPlainObject';
 
 const DOMAIN = 'http://localhost:5000';
 
-const cachedResponses = {};
-
 const api = {
   token: null,
 
@@ -12,6 +10,7 @@ const api = {
   setToken(newToken) {
     this.token = newToken;
   },
+
   fetch(url, opts) {
     const options = {
       cache: false,

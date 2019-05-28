@@ -21,7 +21,6 @@ class Chat extends PureComponent {
     }
 
     render() {
-        console.log(this.props.messages)
         return (
             <GiftedChat
                 messages={this.props.messages}

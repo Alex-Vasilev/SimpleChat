@@ -8,6 +8,8 @@ import Loading from '../loading';
 import Login from '../login';
 import Chat from '../chat';
 import Users from '../users';
+import Conversations from '../conversations';
+
 
 
 const AppNavigator = createStackNavigator(
@@ -15,7 +17,8 @@ const AppNavigator = createStackNavigator(
         [ROUTES.LOADING]: Loading,
         [ROUTES.LOGIN]: Login,
         [ROUTES.CHAT]: Chat,
-        [ROUTES.USERS]: Users
+        [ROUTES.USERS]: Users,
+        [ROUTES.CONVERSATIONS]: Conversations
     },
     {
         cardStyle: {
