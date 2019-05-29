@@ -1,19 +1,20 @@
 import { createAction } from 'redux-actions';
 
-import { GOT_MESSAGES, GOT_NEW_MESSAGE } from './types';
-
-const gotMessagesAction = createAction(GOT_MESSAGES);
-const gotNewMessageAction = createAction(GOT_NEW_MESSAGE);
+import { SET_MESSAGES, SET_NEW_MESSAGE } from './types';
 
 
-export function gotMessages(messages) {
+const setMessagesAction = createAction(SET_MESSAGES);
+const setNewMessageAction = createAction(SET_NEW_MESSAGE);
+
+
+export function setMessages(messages) {
     return function (dispatch) {
-        return dispatch(gotMessagesAction(messages.reverse()))
+        return dispatch(setMessagesAction(messages.reverse()))
     };
 }
 
-export function gotNewMessage(messages) {
+export function setMessage(message) {
     return function (dispatch) {
-        return dispatch(gotNewMessageAction(messages))
+        return dispatch(setNewMessageAction(message))
     };
 }

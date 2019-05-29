@@ -3,7 +3,7 @@ import { searchUser } from '../../api/search-user';
 import { GOT_USERS, GOT_NEW_USER } from './types';
 
 
-// const gotUsersAction = createAction(GOT_USERS);
+const gotUsersAction = createAction(GOT_USERS);
 // const gotNewUserAction = createAction(GOT_NEW_USER);
 
 
@@ -22,8 +22,8 @@ import { GOT_USERS, GOT_NEW_USER } from './types';
 export function search(name) {
     return function (dispatch) {
         searchUser(name)
-            .then(res => {
-                console.log(res)
+            .then(users => {
+                return dispatch(gotUsersAction(users))
             })
     }
 }

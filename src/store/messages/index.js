@@ -1,15 +1,23 @@
-import { GOT_MESSAGES, GOT_NEW_MESSAGE } from './types';
+import { SET_MESSAGES, SET_NEW_MESSAGE } from './types';
 
 
-const initialState = {};
+const initialState = {
+  messages: []
+};
 
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GOT_MESSAGES:
-      return action.payload ? action.payload : [];
-    case GOT_NEW_MESSAGE:
-      return [action.payload, ...state];
+    case SET_MESSAGES:
+      return {
+        ...state,
+        messages: action.payload
+      };
+    case SET_NEW_MESSAGE:
+      return {
+        ...state,
+        messages: [action.payload, ...state.messages]
+      };
   }
 
   return state;

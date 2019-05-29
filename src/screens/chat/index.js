@@ -1,40 +1,58 @@
 import React, { PureComponent } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { connect } from 'react-redux';
-import { openChat, sendMessage } from '../../store/socket';
+import { sendMessage } from '../../store/socket';
+
 
 
 
 class Chat extends PureComponent {
-    constructor(props) {
-        super(props);
+    state = {
+        messages: []
     }
 
-    // componentDidMount() {
-    //     openChat({
-    //         user: this.props.user, receiver: this.props.receiver
-    //     });
-    // }
+    static getDerivedStateFromProps(props, state) {
+        if (state.messages !== props.messages) {
+            return {
+                messages: props.messages,
+            };
+        }
+        return null;
+    }
+
 
     handleSend = (message) => {
-        sendMessage(message.text);
+        const { chat, user } = this.props
+
+        sendMessage({
+            user: {
+                _id: user._id,
+                name: user.name
+            },
+            chatId: chat._id,
+            text: message.text,
+            createdAt: message.createdAt
+        });
     }
 
     render() {
+        const { user } = this.props
+        const { messages } = this.state
+
         return (
             <GiftedChat
-                messages={this.props.messages}
+                messages={messages}
                 user={{
-                    _id: 1, //this.props.user.id
+                    _id: user._id
                 }}
-                onSend={message => this.handleSend(message[0])}
+                onSend={messages => this.handleSend(messages[0])}
             />
         );
     }
 }
 
-export default connect((state, { navigation }) => ({
-    messages: state.messages,
+export default connect((state) => ({
+    messages: state.messages.messages,
     user: state.user,
-    // receiver: navigation.getParam('receivingUser')
+    chat: state.chats.chat
 }))(Chat);

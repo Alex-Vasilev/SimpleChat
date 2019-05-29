@@ -7,15 +7,9 @@ import { auth } from '../../store/auth/actions';
 
 
 
-
 class Login extends PureComponent {
-    constructor() {
-        super();
-        this.state = {
-            name: '',
-            password: '',
-            isLoginOption: true
-        };
+    state = {
+        isLoginOption: true
     }
 
     handleChange = (type, value) => {
@@ -79,11 +73,11 @@ export default connect(
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: COLORS.RED,
-        height: '100%',
-        width: '100%'
+        paddingHorizontal: 40
     },
     text: {
         fontSize: 20,
@@ -92,7 +86,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        width: '90%',
+        width: '100%',
         borderColor: COLORS.TRANSPARENT,
         backgroundColor: COLORS.WHITE,
         borderRadius: 10,

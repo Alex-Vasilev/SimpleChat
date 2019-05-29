@@ -1,15 +1,15 @@
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import { createReactNavigationReduxMiddleware } from 'react-navigation-redux-helpers';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import {
-  createReactNavigationReduxMiddleware,
-} from 'react-navigation-redux-helpers';
-
 import app from './app';
 import auth from './auth';
+import chats from './chats';
+import messages from './messages';
 import navigation from './navigation';
 import user from './user';
 import users from './users';
-import messages from './messages';
+
+
 
 
 export default function configureStore() {
@@ -30,6 +30,7 @@ export default function configureStore() {
     messages,
     user,
     users,
+    chats
   });
 
   const store = createStore(

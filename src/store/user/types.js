@@ -1,1 +1,1 @@
-const GOT_USER = 'USER/GOT_USER';
+export const SET_USER = 'USER/SET_USER';

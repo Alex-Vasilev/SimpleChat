@@ -1,58 +1,38 @@
 import io from 'socket.io-client';
-import { gotMessages } from '../store/messages/actions'
-
-let token = ''
-
-const socket = io('http://localhost:5000', {
-    query: { token: token }
-});
-socket.connect();
+import api from '../api/index';
+import { setMessages, setMessage } from '../store/messages/actions';
 
 
-export function openChat(users) {
-    socket.emit('chat', users);
+let socket;
+var store;
+
+
+export function getMessages(chatId) {
+    socket.emit('get_messages', chatId);
 };
 
-export function sendMessage(text, sender, receiver) {
-    socket.emit('send message', text);
+export function sendMessage(message) {
+    store.dispatch(setMessage(message))
+    socket.emit('send_message', message);
 };
 
-export function login(name, password) {
-    socket.emit('login', { name, password });
+export function configureSocket(s) {
+    store = s
 }
 
-export function registration(name, password) {
-    socket.emit('registration', { name, password });
-}
+export function runSoket() {
+    socket = io('http://localhost:5000', {
+        query: { token: api.token }
+    });
+    socket.connect();
 
-export function configureSocket(store) {
-    socket.emit('authenticate', token)
-
-    socket.on('set token', token => {
-        token = token
-        socket.emit('authenticate', token)
-    })
-
-    socket.on('userCreated', response => {
-        const { user, users } = response;
-        store.dispatch(gotUser(user));
-        store.dispatch(gotUsers(users));
-        navigate('Users');
+    
+    socket.on("set_messages", messages => {
+        store.dispatch(setMessages(messages))
     });
 
-    socket.on("set messages", messages => {
-        store.dispatch(gotMessages(messages))
-    });
-
-    socket.on('newUser', user => {
-        store.dispatch(gotNewUser(user));
-    });
-
-    socket.on('incomingMessage', message => {
+    socket.on('incoming_message', message => {
         store.dispatch(gotNewMessage(message));
     });
-
-    socket.on('set token', (token) => {
-
-    })
 }
+

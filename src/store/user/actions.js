@@ -1,13 +1,13 @@
 import { createAction } from 'redux-actions';
-
-import { GOT_USER } from './types';
-
-const gotUserAction = createAction(GOT_USER);
+import { SET_USER } from './types';
 
 
-export function gotUser(user) {
+const setUserAction = createAction(SET_USER);
+
+
+
+export function setUserInfo(user) {
     return function (dispatch) {
-        return dispatch(gotUserAction(user))
+        dispatch(setUserAction(user))
     };
 }
-

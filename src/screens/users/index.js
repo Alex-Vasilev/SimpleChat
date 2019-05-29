@@ -1,13 +1,16 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import { StyleSheet, TextInput, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Text, View, Touchable } from '../../components';
 import * as COLORS from '../../constants/colors';
 import { search } from '../../store/users/actions'
+import { chatCreate } from '../../store/chats/actions'
+
 
 class Users extends PureComponent {
-    openChat = (receivingUser) => {
-        this.props.navigation.navigate('Chat', { receivingUser });
+    handleCreateChat = (userId) => {
+        const { onChatCreate } = this.props
+        onChatCreate(userId)
     }
 
     handleChange = (type, value) => {
@@ -22,6 +25,8 @@ class Users extends PureComponent {
     }
 
     render() {
+        const { users } = this.props
+
         return (
             <View style={styles.container}>
                 <TextInput
@@ -35,6 +40,21 @@ class Users extends PureComponent {
                 >
                     <Text style={styles.buttonText}>Search</Text>
                 </Touchable>
+                <ScrollView style={styles.usersContainer}>
+                    {
+                        users.map(user => {
+                            return (
+                                <Touchable
+                                    key={user._id}
+                                    style={styles.userRow}
+                                    onPress={() => this.handleCreateChat(user._id)}
+                                >
+                                    <Text style={styles.userName}>{user.name}</Text>
+                                </Touchable>
+                            )
+                        })
+                    }
+                </ScrollView>
             </View>
         );
     }
@@ -43,19 +63,20 @@ class Users extends PureComponent {
 
 export default connect(
     state => ({
-        users: state.users
+        users: state.users.users
     }),
     dispatch => ({
         onSearch: (name) => dispatch(search(name)),
+        onChatCreate: (userId) => dispatch(chatCreate(userId))
     }))(Users);
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: COLORS.RED,
-        height: '100%',
-        width: '100%'
+        paddingHorizontal: 40
     },
     text: {
         fontSize: 20,
@@ -64,7 +85,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        width: '90%',
+        width: '100%',
         borderColor: COLORS.TRANSPARENT,
         backgroundColor: COLORS.WHITE,
         borderRadius: 10,
@@ -86,5 +107,17 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 15,
         fontWeight: 'bold',
+    },
+    userRow: {
+        borderBottomWidth: 1,
+        borderBottomColor: COLORS.WHITE,
+        width: '100%'
+    },
+    userName: {
+        color: COLORS.WHITE,
+        paddingVertical: 6,
+    },
+    usersContainer: {
+        width: '100%'
     }
 });
