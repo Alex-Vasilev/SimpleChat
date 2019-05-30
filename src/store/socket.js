@@ -1,32 +1,22 @@
 import io from 'socket.io-client';
 import api from '../api/index';
 import { setMessages, setMessage } from '../store/messages/actions';
-
+import * as API from '../constants/api';
 
 let socket;
-var store;
+let store;
 
-
-export function getMessages(chatId) {
-    socket.emit('get_messages', chatId);
-};
-
-export function sendMessage(message) {
-    store.dispatch(setMessage(message))
-    socket.emit('send_message', message);
-};
-
-export function configureSocket(s) {
+export const configureSocket = s => {
     store = s
 }
 
-export function runSoket() {
-    socket = io('http://localhost:5000', {
+export const runSocket = () => {
+    socket = io(API.DOMAIN, {
         query: { token: api.token }
     });
     socket.connect();
 
-    
+
     socket.on("set_messages", messages => {
         store.dispatch(setMessages(messages))
     });
@@ -36,3 +26,11 @@ export function runSoket() {
     });
 }
 
+export const getMessages = chatId => {
+    socket.emit('get_messages', chatId);
+};
+
+export const sendMessage = message => {
+    store.dispatch(setMessage(message))
+    socket.emit('send_message', message);
+};

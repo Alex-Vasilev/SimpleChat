@@ -1,11 +1,16 @@
 import React, { PureComponent } from 'react';
-import { View, Text, Touchable } from '../../components';
-import { StyleSheet } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { setChat } from '../../store/chats/actions'
+import { Text, Touchable, View } from '../../components';
+import * as COLORS from '../../constants/colors';
+import { setChat } from '../../store/chats/actions';
 
 
 class Chats extends PureComponent {
+    static navigationOptions = {
+        header: null
+    }
+
     handleOpenChat = (chat) => {
         const { onChatOpen } = this.props
         onChatOpen(chat)
@@ -13,19 +18,23 @@ class Chats extends PureComponent {
 
     render() {
         const { chats } = this.props
+
         return (
             <View style={styles.container}>
-                {
-                    chats.map(chat => (
-                        <View key={chat._id}>
-                            <Touchable
-                                onPress={() => this.handleOpenChat(chat)}
-                            >
-                                <Text style={{ color: '#fff' }}>{chat._id}</Text>
-                            </Touchable>
-                        </View>
-                    ))
-                }
+                <Text>Chats</Text>
+                <ScrollView>
+                    {
+                        chats.map(chat => (
+                            <View key={chat._id}>
+                                <Touchable
+                                    onPress={() => this.handleOpenChat(chat)}
+                                >
+                                    <Text style={{ color: '#fff' }}>{chat._id}</Text>
+                                </Touchable>
+                            </View>
+                        ))
+                    }
+                </ScrollView>
             </View>
         );
     }
@@ -34,7 +43,7 @@ class Chats extends PureComponent {
 
 export default connect(
     state => ({
-        chats: state.chats.chats
+        chats: state.chats.userChats
     }),
     dispatch => ({
         onChatOpen: (chat) => dispatch(setChat(chat))
@@ -45,7 +54,8 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'steelblue',
-        flex: 1
+        backgroundColor: COLORS.BLUE,
+        flex: 1,
+        paddingTop: 100
     }
 });

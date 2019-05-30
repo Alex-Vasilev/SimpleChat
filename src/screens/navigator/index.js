@@ -1,14 +1,10 @@
-import { createStackNavigator, } from 'react-navigation';
-
+import { createStackNavigator } from 'react-navigation';
 import * as ROUTES from '../../constants/routes';
-
-import * as COLORS from '../../constants/colors';
-
+import Chat from '../chat';
+import Chats from '../chats';
 import Loading from '../loading';
 import Login from '../login';
-import Chat from '../chat';
 import Users from '../users';
-import Chats from '../chats';
 
 
 
@@ -21,19 +17,19 @@ const AppNavigator = createStackNavigator(
         [ROUTES.CHATS]: Chats
     },
     {
-        cardStyle: {
-            backgroundColor: COLORS.WHITE,
-        },
-        headerMode: 'screen',
+        // cardStyle: {
+        //     backgroundColor: COLORS.WHITE,
+        // },
+        // headerMode: 'none',
         navigationOptions: {
-            headerStyle: {
-                backgroundColor: COLORS.WHITE,
-            },
-            headerTitleStyle: {
-                marginHorizontal: 'auto',
-                fontFamily: 'Open Sans',
-                fontSize: 17,
-            },
+            // headerStyle: {
+            //     backgroundColor: COLORS.WHITE,
+            // },
+            // headerTitleStyle: {
+            //     marginHorizontal: 'auto',
+            //     fontFamily: 'Open Sans',
+            //     fontSize: 17,
+            // },
         },
     }
 );

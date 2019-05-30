@@ -1,7 +1,6 @@
 import isPlainObject from 'lodash/isPlainObject';
+import * as API from '../constants/api';
 
-
-const DOMAIN = 'http://localhost:5000';
 
 const api = {
   token: null,
@@ -23,7 +22,7 @@ const api = {
       ? JSON.stringify(options.data)
       : options.data;
 
-    let fullUrl = DOMAIN + url;
+    let fullUrl = `${API.DOMAIN}${url}`;
 
 
     return fetch(fullUrl, {

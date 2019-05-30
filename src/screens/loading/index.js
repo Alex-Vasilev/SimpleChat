@@ -25,7 +25,7 @@ class LoadingScreen extends PureComponent {
   };
 
   componentDidMount() {
-    const { onInitApplication } = this.props;;
+    const { onInitApplication } = this.props;
 
     onInitApplication()
   }

@@ -1,10 +1,8 @@
+import * as API from '../constants/api';
 import api from './index';
 
-const CHATS = '/chat';
-const NEW_CHAT = `${CHATS}/new`;
-
-export function getChats(userId) {
-  return api.fetch(CHATS, {
+export const getChats = (userId) => {
+  return api.fetch(API.CHATS, {
     method: 'POST',
     data: {
       userId
@@ -13,7 +11,7 @@ export function getChats(userId) {
 }
 
 export function newChat(userId, recieverId) {
-  return api.fetch(NEW_CHAT, {
+  return api.fetch(API.NEW_CHAT, {
     method: 'POST',
     data: {
       userId,

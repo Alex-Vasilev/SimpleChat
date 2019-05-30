@@ -21,29 +21,29 @@ class Chat extends PureComponent {
     }
 
 
-    handleSend = (message) => {
-        const { chat, user } = this.props
+    handleSend = ({ text, createdAt }) => {
+        const {
+            chat: { _id: chatId },
+            user
+        } = this.props
 
         sendMessage({
-            user: {
-                _id: user._id,
-                name: user.name
-            },
-            chatId: chat._id,
-            text: message.text,
-            createdAt: message.createdAt
+            user,
+            chatId,
+            text,
+            createdAt
         });
     }
 
     render() {
-        const { user } = this.props
+        const { user: { _id } } = this.props
         const { messages } = this.state
 
         return (
             <GiftedChat
                 messages={messages}
                 user={{
-                    _id: user._id
+                    _id
                 }}
                 onSend={messages => this.handleSend(messages[0])}
             />
@@ -52,7 +52,7 @@ class Chat extends PureComponent {
 }
 
 export default connect((state) => ({
-    messages: state.messages.messages,
+    messages: state.messages.incomingMessages,
     user: state.user,
-    chat: state.chats.chat
+    chat: state.chats.currentChat
 }))(Chat);

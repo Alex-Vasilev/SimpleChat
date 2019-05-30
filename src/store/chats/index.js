@@ -2,8 +2,8 @@ import { SET_CHAT, SET_CHATS } from './types';
 
 
 const initialState = {
-  chats: [],
-  chat: {}
+  userChats: [],
+  currentChat: {}
 };
 
 
@@ -12,12 +12,12 @@ export default function (state = initialState, action) {
     case SET_CHATS:
       return {
         ...state,
-        chats: action.payload
+        userChats: action.payload
       }
     case SET_CHAT:
       return {
         ...state,
-        chat: action.payload
+        currentChat: action.payload
       }
 
   }

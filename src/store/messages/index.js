@@ -2,7 +2,7 @@ import { SET_MESSAGES, SET_NEW_MESSAGE } from './types';
 
 
 const initialState = {
-  messages: []
+  incomingMessages: []
 };
 
 
@@ -11,12 +11,12 @@ export default function (state = initialState, action) {
     case SET_MESSAGES:
       return {
         ...state,
-        messages: action.payload
+        incomingMessages: action.payload
       };
     case SET_NEW_MESSAGE:
       return {
         ...state,
-        messages: [action.payload, ...state.messages]
+        incomingMessages: [action.payload, ...state.incomingMessages]
       };
   }
 

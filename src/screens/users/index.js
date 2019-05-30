@@ -13,7 +13,7 @@ class Users extends PureComponent {
         onChatCreate(userId)
     }
 
-    handleChange = (type, value) => {
+    handleChange = type => value => {
         this.setState({ [type]: value });
     }
 
@@ -30,7 +30,7 @@ class Users extends PureComponent {
         return (
             <View style={styles.container}>
                 <TextInput
-                    onChangeText={value => this.handleChange('name', value)}
+                    onChangeText={this.handleChange('name')}
                     autoCapitalize='none'
                     style={styles.input}
                 />

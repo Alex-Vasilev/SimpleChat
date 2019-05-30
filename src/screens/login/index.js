@@ -8,6 +8,10 @@ import { auth } from '../../store/auth/actions';
 
 
 class Login extends PureComponent {
+    static navigationOptions = {
+        header: null
+    }
+
     state = {
         isLoginOption: true
     }
@@ -67,7 +71,7 @@ class Login extends PureComponent {
 export default connect(
     () => ({}),
     dispatch => ({
-        onAuth: (name, password, isLogin) => dispatch(auth(name, password, isLogin)),
+        onAuth: (...args) => dispatch(auth(...args)),
     })
 )(Login);
 
