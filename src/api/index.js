@@ -3,14 +3,7 @@ import * as API from '../constants/api';
 
 
 const api = {
-  token: null,
-
-  //TODO: change the way of setting token
-  setToken(newToken) {
-    this.token = newToken;
-  },
-
-  fetch(url, opts) {
+  fetch(url, token, opts) {
     const options = {
       cache: false,
       cacheDuration: Infinity,
@@ -31,7 +24,7 @@ const api = {
       headers: {
         Accept: 'application/json',
         'Accept-Encoding': 'gzip',
-        Authorization: `Bearer ${this.token}` || undefined,
+        Authorization: `Bearer ${token}` || undefined,
         'Content-Type': 'application/json; charset=UTF-8',
         ...options.headers,
       },

@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
-import api from '../api/index';
 import { setMessages, setMessage } from '../store/messages/actions';
 import * as API from '../constants/api';
+
 
 let socket;
 let store;
@@ -10,9 +10,9 @@ export const configureSocket = s => {
     store = s
 }
 
-export const runSocket = () => {
+export const runSocket = (token) => {
     socket = io(API.DOMAIN, {
-        query: { token: api.token }
+        query: { token }
     });
     socket.connect();
 

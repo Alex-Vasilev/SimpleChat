@@ -1,37 +1,42 @@
-import api from '../../api';
-import { auth as getUserCredentials } from '../../api/auth';
+import { auth as getUserCredentials, logout as removeUserCredentials } from '../../api/auth';
 import { getChats } from '../../api/chat';
 import * as ROUTES from '../../constants/routes';
 import { setChats } from '../chats/actions';
-import { navigate } from '../navigation/actions';
+import { reset } from '../navigation/actions';
 import { runSocket } from '../socket';
-import { setUserInfo } from '../user/actions';
+import { setUserInfo, removeUserInfo } from '../user/actions';
 
 
 
+export const initAuth = () => (dispatch, getState) => {
+  const { _token, _id } = getState().user;
+  runSocket(_token);
+  getChats(_id, _token)
+    .then((chats) => {
+      if (chats.length) {
+        dispatch(setChats(chats))
+        dispatch(reset(ROUTES.CHATS))
+      } else {
+        dispatch(reset(ROUTES.USERS))
+      }
+    })
+}
 
-// export function initAuth() {
-//   return function (dispatch, getState) {
-//     const { accessToken } = getState().auth;
-
-//   };
-// }
-
-
-export const auth = (name, password, isLogin) => dispatch => {
+export const auth = (name, password, isLogin) => (dispatch) => {
   getUserCredentials(name, password, isLogin)
     .then(res => {
-      api.setToken(res._token)
-      runSocket()
-      dispatch(setUserInfo(res))
-      getChats(res._id)
-        .then(chats => {
-          if (chats.length) {
-            dispatch(setChats(chats))
-            dispatch(navigate(ROUTES.CHATS))
-          } else {
-            dispatch(navigate(ROUTES.USERS))
-          }
-        })
+      if (res.success) {
+        Promise.resolve(dispatch(setUserInfo(res)))
+          .then(() => {
+            dispatch(initAuth())
+          })
+      }
     })
+}
+
+export const logout = () => (dispatch) => {
+  // removeUserCredentials()
+  //   .then(() => {
+  dispatch(removeUserInfo())
+  // })
 }

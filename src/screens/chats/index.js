@@ -1,9 +1,12 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Text, Touchable, View } from '../../components';
 import * as COLORS from '../../constants/colors';
+import * as ROUTES from '../../constants/routes';
 import { setChat } from '../../store/chats/actions';
+import { navigate } from '../../store/navigation/actions';
+import { logout } from '../../store/auth/actions'
 
 
 class Chats extends PureComponent {
@@ -12,26 +15,44 @@ class Chats extends PureComponent {
     }
 
     handleOpenChat = (chat) => {
-        const { onChatOpen } = this.props
-        onChatOpen(chat)
+        const { onChatOpen } = this.props;
+        onChatOpen(chat);
+    }
+
+    handleNavigateToUsers = () => {
+        const { onNavigate } = this.props;
+        onNavigate(ROUTES.USERS)
+    }
+
+    handleLogout = () => {
+        const { onLogout } = this.props;
+        onLogout()
     }
 
     render() {
-        const { chats } = this.props
+        const { chats } = this.props;
 
         return (
             <View style={styles.container}>
-                <Text>Chats</Text>
+                <View style={styles.header}>
+                    <Touchable onPress={this.handleLogout} >
+                        <Text style={[styles.text]}>Logout</Text>
+                    </Touchable>
+                    <Touchable onPress={this.handleNavigateToUsers}>
+                        <Text style={[styles.text]}>Users</Text>
+                    </Touchable>
+                </View>
+                <Text style={[styles.text, styles.title]}>Chats</Text>
                 <ScrollView>
                     {
                         chats.map(chat => (
-                            <View key={chat._id}>
-                                <Touchable
-                                    onPress={() => this.handleOpenChat(chat)}
-                                >
-                                    <Text style={{ color: '#fff' }}>{chat._id}</Text>
-                                </Touchable>
-                            </View>
+                            <Touchable
+                                key={chat._id}
+                                style={styles.rowChat}
+                                onPress={() => this.handleOpenChat(chat)}
+                            >
+                                <Text style={styles.text}>{chat._id}</Text>
+                            </Touchable>
                         ))
                     }
                 </ScrollView>
@@ -42,11 +63,13 @@ class Chats extends PureComponent {
 
 
 export default connect(
-    state => ({
+    (state) => ({
         chats: state.chats.userChats
     }),
-    dispatch => ({
-        onChatOpen: (chat) => dispatch(setChat(chat))
+    (dispatch) => ({
+        onChatOpen: (chat) => dispatch(setChat(chat)),
+        onNavigate: (route) => dispatch(navigate(route)),
+        onLogout: () => dispatch(logout())
     })
 )(Chats);
 
@@ -56,6 +79,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: COLORS.BLUE,
         flex: 1,
-        paddingTop: 100
+        paddingTop: 80,
+        paddingHorizontal: 40
+    },
+    header: {
+        width: '100%',
+        alignItems: 'flex-end'
+    },
+    text: {
+        color: COLORS.WHITE
+    },
+    title: {
+        fontSize: 20
+    },
+    rowChat: {
+        paddingVertical: 7,
+        borderBottomWidth: 1,
+        borderColor: COLORS.WHITE
     }
 });

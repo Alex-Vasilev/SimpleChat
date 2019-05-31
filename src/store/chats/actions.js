@@ -9,19 +9,19 @@ import { SET_CHAT, SET_CHATS } from './types';
 const setChatAction = createAction(SET_CHAT);
 const setChatsAction = createAction(SET_CHATS);
 
-export const setChat = chat => dispatch => {
+export const setChat = (chat) => (dispatch) => {
     dispatch(setChatAction(chat))
     getMessages(chat._id)
     dispatch(navigate(ROUTES.CHAT))
 }
 
-export const setChats = chats => dispatch => {
+export const setChats = (chats) => (dispatch) => {
     dispatch(setChatsAction(chats))
 }
 
-export const chatCreate = recieverId => (dispatch, getState) => {
-    const userId = getState()
-    newChat(userId, recieverId)
+export const chatCreate = (recieverId) => (dispatch, getState) => {
+    const { _id, _token } = getState().user;
+    newChat(_id, recieverId, _token)
         .then(chat => {
             dispatch(setChat(chat))
         })

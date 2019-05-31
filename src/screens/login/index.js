@@ -69,8 +69,11 @@ class Login extends PureComponent {
 }
 
 export default connect(
-    () => ({}),
-    dispatch => ({
+    (state) => ({
+        //TODO: temp
+        state
+    }),
+    (dispatch) => ({
         onAuth: (...args) => dispatch(auth(...args)),
     })
 )(Login);

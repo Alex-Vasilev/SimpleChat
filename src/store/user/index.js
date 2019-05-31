@@ -1,4 +1,4 @@
-import { SET_USER } from './types';
+import { SET_USER, REMOVE_USER } from './types';
 
 const initialState = {};
 
@@ -9,6 +9,8 @@ export default function (state = initialState, action) {
       return {
         ...action.payload
       }
+    case REMOVE_USER:
+      return {}
   }
 
   return state;

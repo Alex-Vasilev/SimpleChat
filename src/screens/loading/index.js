@@ -33,7 +33,7 @@ class LoadingScreen extends PureComponent {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Simole Chat</Text>
+        <Text>Simple Chat</Text>
       </View>
     )
   }
@@ -41,7 +41,7 @@ class LoadingScreen extends PureComponent {
 
 export default connect(
   () => ({}),
-  dispatch => ({
+  (dispatch) => ({
     onInitApplication: () => dispatch(initApplication())
   })
 )(LoadingScreen);
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 1,
-    backgroundColor: COLORS.RED,
+    backgroundColor: COLORS.BLUE,
   }
 });

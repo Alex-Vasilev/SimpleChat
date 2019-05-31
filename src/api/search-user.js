@@ -1,9 +1,9 @@
+import * as API from '../constants/api';
 import api from './index';
 
-const SEARCH = '/search';
 
-export function searchUser(name) {
-  return api.fetch(SEARCH, {
+export const searchUser = (name, token) => {
+  return api.fetch(API.SEARCH, token, {
     method: 'POST',
     data: {
       name

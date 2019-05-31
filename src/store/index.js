@@ -1,5 +1,7 @@
 import { createReactNavigationReduxMiddleware } from 'react-navigation-redux-helpers';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import app from './app';
 import auth from './auth';
@@ -10,6 +12,12 @@ import user from './user';
 import users from './users';
 
 
+
+const persistConfig = {
+  key: 'root',
+  storage: storage,
+  blacklist: ['navigation']
+};
 
 
 export default function configureStore() {
@@ -33,8 +41,10 @@ export default function configureStore() {
     chats
   });
 
+  const persistedReducer = persistReducer(persistConfig, rootReducer)
+
   const store = createStore(
-    rootReducer,
+    persistedReducer,
     {},
     composeEnhancers(applyMiddleware(navigationMiddleware, thunk)),
   );
