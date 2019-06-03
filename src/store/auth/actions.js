@@ -1,5 +1,7 @@
 import { auth as getUserCredentials, logout as removeUserCredentials } from '../../api/auth';
 import { getChats } from '../../api/chat';
+import { refreshToken as getNewToken } from '../../api/auth';
+
 import * as ROUTES from '../../constants/routes';
 import { setChats } from '../chats/actions';
 import { reset } from '../navigation/actions';
@@ -10,15 +12,16 @@ import { setUserInfo, removeUserInfo } from '../user/actions';
 
 export const initAuth = () => (dispatch, getState) => {
   const { _token, _id } = getState().user;
+  console.log(getState().user)
+  // dispatch(removeUserInfo())
   runSocket(_token);
   getChats(_id, _token)
     .then((chats) => {
+      // TODO: need to improve
       if (chats.length) {
         dispatch(setChats(chats))
-        dispatch(reset(ROUTES.CHATS))
-      } else {
-        dispatch(reset(ROUTES.USERS))
       }
+      dispatch(reset(ROUTES.CHATS))
     })
 }
 
@@ -39,4 +42,19 @@ export const logout = () => (dispatch) => {
   //   .then(() => {
   dispatch(removeUserInfo())
   // })
+}
+
+
+export const refreshToken = () => (dispatch, getState) => {
+  const { _token, refreshToken, _id, name } = getState().user;
+
+  getNewToken(refreshToken, _token, _id, name)
+    .then(res => {
+      if (res.success) {
+        Promise.resolve(dispatch(setUserInfo(res)))
+          .then(() => {
+            dispatch(initAuth())
+          })
+      }
+    })
 }

@@ -17,3 +17,10 @@ export const logout = (token) => {
     method: 'GET'
   });
 }
+
+export const refreshToken = (refreshToken, _id, name, token) => {
+  return api.fetch(API.REFRESH_TOKEN, token, {
+    method: 'POST',
+    data: { refreshToken, _id, name }
+  });
+}

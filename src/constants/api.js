@@ -6,3 +6,4 @@ export const REGISRATION = `${AUTH}/registration`;
 export const CHATS = '/chat';
 export const NEW_CHAT = `${CHATS}/new`;
 export const SEARCH = '/search';
+export const REFRESH_TOKEN = `${AUTH}/token`;
