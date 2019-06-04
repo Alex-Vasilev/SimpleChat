@@ -1,21 +1,13 @@
 import * as API from '../constants/api';
 import api from './index';
 
-export const getChats = (userId, token) => {
-  return api.fetch(API.CHATS, token, {
-    method: 'POST',
-    data: {
-      userId
-    },
-  });
-}
+export const getChats = token => api.fetch(API.CHATS, token, {
+  method: 'GET',
+});
 
-export const newChat = (userId, recieverId, token) => {
-  return api.fetch(API.NEW_CHAT, token, {
-    method: 'POST',
-    data: {
-      userId,
-      recieverId
-    },
-  });
-}
+export const newChat = (recieverId, token) => api.fetch(API.NEW_CHAT, token, {
+  method: 'POST',
+  data: {
+    recieverId,
+  },
+});

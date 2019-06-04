@@ -41,7 +41,8 @@ module.exports = {
     "no-mixed-operators": ["off"],
     "no-nested-ternary": ["off"],
     "no-shadow": ["off"],
-    "no-plusplus": ["warn"]
+    "no-plusplus": ["warn"],
+    "import/no-cycle": 0
   },
   "env": {
     "jest": true,
