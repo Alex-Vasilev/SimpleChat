@@ -7,10 +7,10 @@ const setMessagesAction = createAction(SET_MESSAGES);
 const setNewMessageAction = createAction(SET_NEW_MESSAGE);
 
 
-export const setMessages = (messages) => (dispatch) => {
-    return dispatch(setMessagesAction(messages.reverse()))
-}
+export const setMessages = messages => (dispatch) => {
+  dispatch(setMessagesAction(messages));
+};
 
-export const setMessage = (message) => (dispatch) => {
-    return dispatch(setNewMessageAction(message))
-}
+export const setMessage = message => (dispatch) => {
+  dispatch(setNewMessageAction(message));
+};

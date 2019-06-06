@@ -18,13 +18,14 @@ function getActiveRouteName(navigationState) {
   return route.routeName;
 }
 
-export default function(state = initialState, action) {
-  const nextState = AppNavigator.router.getStateForAction(action, state) || state;
+export default function (state = initialState, action) {
+  const nextState = AppNavigator.router
+    .getStateForAction(action, state) || state;
 
   return nextState
     ? {
-        ...nextState,
-        activeRouteName: getActiveRouteName(nextState),
-      }
+      ...nextState,
+      activeRouteName: getActiveRouteName(nextState),
+    }
     : state;
 }

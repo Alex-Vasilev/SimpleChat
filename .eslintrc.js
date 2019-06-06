@@ -35,14 +35,18 @@ module.exports = {
     ],
     "semi": ["error", "always"],
     "global-require": ["off"],
-    "max-len": ["warn"],
+    "max-len": ["error", { "code": 80 }],
     "no-case-declarations": ["off"],
     "no-unused-expressions": ["off"],
     "no-mixed-operators": ["off"],
     "no-nested-ternary": ["off"],
     "no-shadow": ["off"],
     "no-plusplus": ["warn"],
-    "import/no-cycle": 0
+    "import/no-cycle": 0,
+    "no-prototype-builtins": 0,
+    "no-underscore-dangle": 0,
+    "arrow-body-style": ["error", "as-needed"],
+    "no-use-before-define": ["error", { "variables": false }]
   },
   "env": {
     "jest": true,

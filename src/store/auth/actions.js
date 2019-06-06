@@ -1,5 +1,4 @@
 import { auth as getUserCredentials } from '../../api/auth';
-import { getChats } from '../../api/chat';
 import { refreshToken as getNewToken } from '../../api/token';
 import * as ROUTES from '../../constants/routes';
 import { setChats } from '../chats/actions';
@@ -13,21 +12,17 @@ export const initAuth = () => (dispatch, getState) => {
 
   // dispatch(removeUserInfo())
   runSocket(_token);
-  getChats(_token)
-    .then((chats) => {
-      // TODO: need to improve
-      if (chats.length) {
-        dispatch(setChats(chats));
-      }
-      dispatch(reset(ROUTES.CHATS));
-    });
+  dispatch(reset(ROUTES.CHATS));
 };
 
 export const auth = (name, password, isLogin) => (dispatch) => {
   getUserCredentials(name, password, isLogin)
     .then((res) => {
       if (res.success) {
-        Promise.resolve(dispatch(setUserInfo(res)))
+        Promise.all([
+          dispatch(setUserInfo(res)),
+          dispatch(setChats(res.chats)),
+        ])
           .then(() => {
             dispatch(initAuth());
           });

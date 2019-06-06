@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { setMessages, setMessage } from './messages/actions';
+import { setMessage } from './messages/actions';
 import * as API from '../constants/api';
 import { refreshToken } from './auth/actions';
 
@@ -23,20 +23,11 @@ export const runSocket = (token) => {
     }
   });
 
-  socket.on('set_messages', (messages) => {
-    store.dispatch(setMessages(messages));
+  socket.on('new_message', ([message]) => {
+    store.dispatch(setMessage(message));
   });
-
-//   socket.on('incoming_message', (message) => {
-//     store.dispatch(gotNewMessage(message));
-//   });
-};
-
-export const getMessages = (chatId) => {
-  socket.emit('get_messages', chatId);
 };
 
 export const sendMessage = (message) => {
-  store.dispatch(setMessage(message));
   socket.emit('send_message', message);
 };
