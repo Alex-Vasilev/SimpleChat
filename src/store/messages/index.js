@@ -1,16 +1,24 @@
-import { GOT_MESSAGES, GOT_NEW_MESSAGE } from './types';
+import { SET_MESSAGES, SET_NEW_MESSAGE } from './types';
 
 
-const initialState = {};
+const initialState = {
+  incomingMessages: [],
+};
 
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GOT_MESSAGES:
-      return action.payload ? action.payload : [];
-    case GOT_NEW_MESSAGE:
-      return [action.payload, ...state];
-  }
+    case SET_MESSAGES:
+      return {
+        ...state,
+        incomingMessages: action.payload.reverse(),
+      };
+    case SET_NEW_MESSAGE:
+      return {
+        ...state,
+        incomingMessages: [action.payload, ...state.incomingMessages],
+      };
 
-  return state;
+    default: return state;
+  }
 }

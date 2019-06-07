@@ -1,20 +1,15 @@
 import { createAction } from 'redux-actions';
-
-import { GOT_USERS, GOT_NEW_USER} from './types';
-
-
-const gotUsersAction = createAction(GOT_USERS);
-const gotNewUserAction = createAction(GOT_NEW_USER);
+import { searchUser } from '../../api/search-user';
+import { SET_USERS } from './types';
 
 
-export function gotUsers(users) {
-    return function (dispatch) {
-        return dispatch(gotUsersAction(users))
-    };
-}
+const setUsersAction = createAction(SET_USERS);
 
-export function gotNewUser(user) {
-    return function (dispatch) {
-        return dispatch(gotNewUserAction(user))
-    };
+
+export const search = (name) => (dispatch, getState) => {
+    const { _token } = getState().user;
+    searchUser(name, _token)
+        .then(users => {
+            return dispatch(setUsersAction(users))
+        })
 }

@@ -1,55 +1,55 @@
-import { createAction } from 'redux-actions';
-
-import api from '../../api';
 import { auth as getUserCredentials } from '../../api/auth';
-import { getConversation } from '../../api/conversation';
+import { refreshToken as getNewToken } from '../../api/token';
+import * as ROUTES from '../../constants/routes';
+import { setChats } from '../chats/actions';
+import { reset } from '../navigation/actions';
+import { runSocket } from '../socket';
+import { removeUserInfo, setUserInfo } from '../user/actions';
 
 
-import { SET_USER_CREDENTIALS } from './types';
-import { navigate } from '../navigation/actions';
-import { gotMessages } from '../messages/actions';
+export const initAuth = () => (dispatch, getState) => {
+  const { _token } = getState().user;
+
+  // dispatch(removeUserInfo())
+  runSocket(_token);
+  dispatch(reset(ROUTES.CHATS));
+};
+
+export const auth = (name, password, isLogin) => (dispatch) => {
+  getUserCredentials(name, password, isLogin)
+    .then((res) => {
+      if (res.success) {
+        Promise.all([
+          dispatch(setUserInfo(res)),
+          dispatch(setChats(res.chats)),
+        ])
+          .then(() => {
+            dispatch(initAuth());
+          });
+      }
+    });
+};
+
+export const logout = () => (dispatch) => {
+  // removeUserCredentials()
+  //   .then(() => {
+  dispatch(removeUserInfo());
+  // })
+};
 
 
-import * as ROUTES from '../../constants/routes'
+export const refreshToken = () => (dispatch, getState) => {
+  const {
+    _token, refreshToken, name, _id,
+  } = getState().user;
 
-const setUserCredentials = createAction(SET_USER_CREDENTIALS);
-
-export function initAuth() {
-  return function (dispatch, getState) {
-    const { accessToken } = getState().auth;
-
-
-
-
-  };
-}
-
-
-// export function login() {
-//   return function (dispatch, getState) {
-//     getUserCredentials()
-//       .then(res =>
-//         getConversation()
-//           .then(res => {
-//             dispatch(gotMessages(res))
-//             dispatch(navigate(ROUTES.CHAT))
-//           })
-//       )
-//   }
-// }
-
-// export function auth() {
-//   return function (dispatch) {
-//     return generateUniqueId()
-//       .then(uniqueId => {
-//         return getUserCredentials(uniqueId);
-//       })
-//       .then(response => {
-//         if (response) {
-//           dispatch(setUserCredentials(response));
-//           return response.access_token;
-//         }
-//       })
-//       .catch(console.warn);
-//   };
-// }
+  getNewToken(_token, refreshToken, name, _id)
+    .then((res) => {
+      if (res.success) {
+        Promise.resolve(dispatch(setUserInfo(res)))
+          .then(() => {
+            dispatch(initAuth());
+          });
+      }
+    });
+};

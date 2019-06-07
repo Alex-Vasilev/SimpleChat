@@ -1,20 +1,19 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, TextInput } from 'react-native'
+import { StyleSheet, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-
-import { View, Text, Touchable } from '../../components';
-import { login, registration } from '../../store/socket';
+import { Text, Touchable, View } from '../../components';
 import * as COLORS from '../../constants/colors';
+import { auth } from '../../store/auth/actions';
+
 
 
 class Login extends PureComponent {
-    constructor() {
-        super();
-        this.state = {
-            name: '',
-            password: '',
-            isRegistration: false
-        };
+    static navigationOptions = {
+        header: null
+    }
+
+    state = {
+        isLoginOption: true
     }
 
     handleChange = (type, value) => {
@@ -22,22 +21,20 @@ class Login extends PureComponent {
     }
 
     handleSubmit = () => {
-        const { isRegistration, name, password } = this.state
+        const { isLoginOption, name, password } = this.state
+        const { onAuth } = this.props
 
-        isRegistration ?
-            registration(name, password)
-            :
-            login(name, password);
+        onAuth(name, password, isLoginOption)
     }
 
     handleToggleRegisrationOption = () => {
         this.setState({
-            isRegistration: !this.state.isRegistration
+            isLoginOption: !this.state.isLoginOption
         })
     }
 
     render() {
-        const { isRegistration } = this.state
+        const { isLoginOption } = this.state
 
         return (
             <View style={styles.container}>
@@ -61,10 +58,10 @@ class Login extends PureComponent {
                     onPress={this.handleSubmit}
                     style={styles.button}
                 >
-                    <Text style={styles.buttonText}> {isRegistration ? 'Register' : 'Login'}</Text>
+                    <Text style={styles.buttonText}> {isLoginOption ? 'Login' : 'Register'}</Text>
                 </Touchable>
                 <Text style={styles.text} onPress={this.handleToggleRegisrationOption}>
-                    {isRegistration ? 'Go to login' : 'Go to registration'}
+                    {isLoginOption ? 'Go to registration' : 'Go to login'}
                 </Text>
             </View>
         )
@@ -72,18 +69,22 @@ class Login extends PureComponent {
 }
 
 export default connect(
-    () => ({}),
-    dispatch => ({
+    (state) => ({
+        //TODO: temp
+        state
+    }),
+    (dispatch) => ({
+        onAuth: (...args) => dispatch(auth(...args)),
     })
 )(Login);
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: COLORS.RED,
-        height: '100%',
-        width: '100%'
+        paddingHorizontal: 40
     },
     text: {
         fontSize: 20,
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        width: '90%',
+        width: '100%',
         borderColor: COLORS.TRANSPARENT,
         backgroundColor: COLORS.WHITE,
         borderRadius: 10,

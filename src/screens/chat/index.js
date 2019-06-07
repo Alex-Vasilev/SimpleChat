@@ -1,41 +1,57 @@
 import React, { PureComponent } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { connect } from 'react-redux';
-import { openChat, sendMessage } from '../../store/socket';
-
+import { sendMessage } from '../../store/socket';
 
 
 class Chat extends PureComponent {
-    constructor(props) {
-        super(props);
+    state = {
+      messages: [],
     }
 
-    // componentDidMount() {
-    //     openChat({
-    //         user: this.props.user, receiver: this.props.receiver
-    //     });
-    // }
+    static getDerivedStateFromProps(props, state) {
+      if (state.messages !== props.messages) {
+        return {
+          messages: props.messages,
+        };
+      }
+      return null;
+    }
 
-    handleSend = (message) => {
-        sendMessage(message.text);
+
+    handleSend = ({ text, createdAt }) => {
+      const {
+        chat: { _id: chatId },
+        user,
+      } = this.props;
+
+      sendMessage({
+        chatId,
+        text,
+        createdAt,
+        user,
+      });
     }
 
     render() {
-        console.log(this.props.messages)
-        return (
-            <GiftedChat
-                messages={this.props.messages}
-                user={{
-                    _id: 1, //this.props.user.id
-                }}
-                onSend={message => this.handleSend(message[0])}
-            />
-        );
+      const { user: { _id } } = this.props;
+      const { messages } = this.state;
+
+      return (
+        <GiftedChat
+          messages={messages}
+                // inverted={false}
+          user={{
+            _id,
+          }}
+          onSend={messages => this.handleSend(messages[0])}
+        />
+      );
     }
 }
 
-export default connect((state, { navigation }) => ({
-    messages: state.messages,
-    user: state.user,
-    // receiver: navigation.getParam('receivingUser')
+export default connect(state => ({
+  messages: state.messages.incomingMessages,
+  user: state.user,
+  chat: state.chats.currentChat,
 }))(Chat);

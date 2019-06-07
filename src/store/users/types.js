@@ -1,2 +1,1 @@
-const GOT_USERS = 'USERS/GOT_USERS';
-const GOT_NEW_USER = 'USERS/GOT_NEW_USER';
+export const SET_USERS = 'USERS/SET_USERS';

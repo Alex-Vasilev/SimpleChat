@@ -1,17 +1,31 @@
+import { AppState } from 'react-native';
+import { createAction } from 'redux-actions';
 import * as ROUTES from '../../constants/routes';
+import { reset } from '../../store/navigation/actions';
+import { initAuth } from '../auth/actions';
+import { APP_STATE_CHANGE } from './types';
 
-import { reset, navigate } from '../../store/navigation/actions';
-import {initAuth} from '../../store/auth/actions'
+const appStateChangeAction = createAction(APP_STATE_CHANGE);
 
-export function initApplication() {
-  return function (dispatch, getState) {
-    dispatch(runApp());
-  };
+export const appStateChange = (state) => (dispatch) => {
+  dispatch(appStateChangeAction(state));
 }
 
-function runApp() {
-  return function (dispatch) {
+const runApp = () => (dispatch, getState) => {
+  const { user } = getState()
+
+  if (Object.keys(user).length) {
+    dispatch(initAuth());
+  } else {
     dispatch(reset(ROUTES.LOGIN));
   }
 };
 
+export const initApplication = () => (dispatch, getState) => {
+  dispatch(appStateChange(AppState.currentState));
+  AppState.addEventListener('change', nextAppState =>
+    dispatch(appStateChange(nextAppState))
+  );
+
+  dispatch(runApp());
+}

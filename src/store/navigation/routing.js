@@ -1,8 +1,16 @@
-import * as ROUTES from '../../constants/routes';
-import { navigate, back } from './actions';
+// import * as ROUTES from '../../constants/routes';
+// import { navigate, back } from './actions';
+
+const routesProcessors = {
+  // [ROUTES.SOME](routeName, params) {
+  //   return function() {
+  //     return { routeName: ROUTES.OTHER, params };
+  //   };
+  // },
+};
 
 export default function process({ routeName, params, route }) {
-  return function(dispatch) {
+  return function (dispatch) {
     const stack = [];
     const resultStack = [];
 
@@ -27,24 +35,15 @@ export default function process({ routeName, params, route }) {
       if (routesProcessors[routeName]) {
         return Promise.resolve(
           dispatch(routesProcessors[routeName](routeName, params)),
-        ).then(updatedRouteInfo => {
+        ).then((updatedRouteInfo) => {
           resultStack.push(updatedRouteInfo);
 
           return resultStack || stack;
         });
-      } else {
-        resultStack.push(stack[i]);
       }
+      resultStack.push(stack[i]);
     }
 
     return Promise.resolve(resultStack);
   };
 }
-
-const routesProcessors = {
-  // [ROUTES.SOME](routeName, params) {
-  //   return function() {
-  //     return { routeName: ROUTES.OTHER, params };
-  //   };
-  // },
-};

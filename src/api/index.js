@@ -1,18 +1,9 @@
 import isPlainObject from 'lodash/isPlainObject';
+import * as API from '../constants/api';
 
-
-const DOMAIN = 'http://localhost:5000';
-
-const cachedResponses = {};
 
 const api = {
-  token: null,
-
-  //TODO: change the way of setting token
-  setToken(newToken) {
-    this.token = newToken;
-  },
-  fetch(url, opts) {
+  fetch(url, token, opts) {
     const options = {
       cache: false,
       cacheDuration: Infinity,
@@ -24,7 +15,7 @@ const api = {
       ? JSON.stringify(options.data)
       : options.data;
 
-    let fullUrl = DOMAIN + url;
+    let fullUrl = `${API.DOMAIN}${url}`;
 
 
     return fetch(fullUrl, {
@@ -33,7 +24,7 @@ const api = {
       headers: {
         Accept: 'application/json',
         'Accept-Encoding': 'gzip',
-        Authorization: `Bearer ${this.token}` || undefined,
+        Authorization: `Bearer ${token}` || undefined,
         'Content-Type': 'application/json; charset=UTF-8',
         ...options.headers,
       },

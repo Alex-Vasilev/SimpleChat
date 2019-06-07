@@ -1,13 +1,19 @@
+import * as API from '../constants/api';
 import api from './index';
 
-const AUTH = '/login';
 
-export function auth() {
-  return api.fetch(AUTH, {
+export const auth = (name, password, isLogin) => api.fetch(
+  isLogin ? API.LOGIN : API.REGISRATION,
+  null,
+  {
     method: 'POST',
     data: {
-      email: 'email',
-      password: 'pass'
+      name,
+      password,
     },
-  });
-}
+  },
+);
+
+export const logout = token => api.fetch(API.LOGOUT, token, {
+  method: 'GET',
+});

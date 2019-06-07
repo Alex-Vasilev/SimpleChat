@@ -2,7 +2,6 @@ import AppNavigator from '../../screens/navigator';
 
 import * as ROUTES from '../../constants/routes';
 
-console.log(1, AppNavigator)
 const initialState = AppNavigator.router.getStateForAction(
   AppNavigator.router.getActionForPathAndParams(ROUTES.LOADING),
 );
@@ -19,13 +18,14 @@ function getActiveRouteName(navigationState) {
   return route.routeName;
 }
 
-export default function(state = initialState, action) {
-  const nextState = AppNavigator.router.getStateForAction(action, state) || state;
+export default function (state = initialState, action) {
+  const nextState = AppNavigator.router
+    .getStateForAction(action, state) || state;
 
   return nextState
     ? {
-        ...nextState,
-        activeRouteName: getActiveRouteName(nextState),
-      }
+      ...nextState,
+      activeRouteName: getActiveRouteName(nextState),
+    }
     : state;
 }
