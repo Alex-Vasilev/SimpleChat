@@ -1,9 +1,9 @@
-import { SET_CHAT, SET_CHATS } from './types';
+import { SET_CHAT, SET_CHATS, UPDATE_CHAT } from './types';
 
 
 const initialState = {
   userChats: [],
-  currentChat: {}
+  currentChat: {},
 };
 
 
@@ -12,15 +12,26 @@ export default function (state = initialState, action) {
     case SET_CHATS:
       return {
         ...state,
-        userChats: action.payload
-      }
+        userChats: action.payload,
+      };
+
     case SET_CHAT:
       return {
         ...state,
-        currentChat: action.payload
-      }
+        currentChat: action.payload,
+      };
 
+    case UPDATE_CHAT:
+      const chats = [...state.userChats];
+      const idx = chats
+        .findIndex(item => item._id === action.payload.currentChatId);
+      chats[idx].messages = [action.payload.message, ...chats[idx].messages];
+
+      return {
+        ...state,
+        userChats: chats,
+      };
+
+    default: return state;
   }
-
-  return state;
 }

@@ -11,7 +11,7 @@ export default function (state = initialState, action) {
     case SET_MESSAGES:
       return {
         ...state,
-        incomingMessages: action.payload.reverse(),
+        incomingMessages: action.payload,
       };
     case SET_NEW_MESSAGE:
       return {

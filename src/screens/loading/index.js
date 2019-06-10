@@ -1,49 +1,33 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import * as COLORS from '../../constants/colors';
 import { initApplication } from '../../store/app/actions';
 
 
+const LoadingScreen = ({ onInitApplication }) => {
+  useEffect(() => {
+    onInitApplication();
+  });
 
+  const [error] = useState(false);
 
+  return (
+    <View style={styles.container}>
+      {!error && <Text>Simple Chat</Text>}
+    </View>
+  );
+};
 
-class LoadingScreen extends PureComponent {
-  static navigationOptions = {
-    header: null,
-  };
-
-  static propTypes = {
-    isLoaded: PropTypes.bool,
-    onInitApplication: PropTypes.func.isRequired,
-    navigation: PropTypes.object.isRequired,
-  };
-
-  state = {
-    error: null,
-  };
-
-  componentDidMount() {
-    const { onInitApplication } = this.props;
-
-    onInitApplication()
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Simple Chat</Text>
-      </View>
-    )
-  }
-}
+LoadingScreen.navigationOptions = {
+  header: null,
+};
 
 export default connect(
   () => ({}),
-  (dispatch) => ({
-    onInitApplication: () => dispatch(initApplication())
-  })
+  dispatch => ({
+    onInitApplication: () => dispatch(initApplication()),
+  }),
 )(LoadingScreen);
 
 const styles = StyleSheet.create({
@@ -53,5 +37,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 1,
     backgroundColor: COLORS.BLUE,
-  }
+  },
 });

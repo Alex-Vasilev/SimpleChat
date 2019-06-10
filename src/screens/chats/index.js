@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Text, Touchable, View } from '../../components';
@@ -9,58 +9,55 @@ import { navigate } from '../../store/navigation/actions';
 import { logout } from '../../store/auth/actions';
 
 
-class Chats extends PureComponent {
-    static navigationOptions = {
-      header: null,
-    }
+const Chats = ({
+  chats,
+  onLogout,
+  onNavigate,
+  onChatOpen,
+}) => {
+  const handleOpenChat = (chatId) => {
+    onChatOpen(chatId);
+  };
 
-    handleOpenChat = (chatId) => {
-      const { onChatOpen } = this.props;
-      onChatOpen(chatId);
-    }
+  const handleNavigateToUsers = () => {
+    onNavigate(ROUTES.USERS);
+  };
 
-    handleNavigateToUsers = () => {
-      const { onNavigate } = this.props;
-      onNavigate(ROUTES.USERS);
-    }
+  const handleLogout = () => {
+    onLogout();
+  };
 
-    handleLogout = () => {
-      const { onLogout } = this.props;
-      onLogout();
-    }
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Touchable onPress={handleLogout}>
+          <Text style={[styles.text]}>Logout</Text>
+        </Touchable>
+        <Touchable onPress={handleNavigateToUsers}>
+          <Text style={[styles.text]}>Users</Text>
+        </Touchable>
+      </View>
+      <Text style={[styles.text, styles.title]}>Chats</Text>
+      <ScrollView>
+        {
+                    chats.map(chat => (
+                      <Touchable
+                        key={chat._id}
+                        style={styles.rowChat}
+                        onPress={() => handleOpenChat(chat._id)}
+                      >
+                        <Text style={styles.text}>{chat._id}</Text>
+                      </Touchable>
+                    ))
+                }
+      </ScrollView>
+    </View>
+  );
+};
 
-    render() {
-      const { chats } = this.props;
-
-      return (
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <Touchable onPress={this.handleLogout}>
-              <Text style={[styles.text]}>Logout</Text>
-            </Touchable>
-            <Touchable onPress={this.handleNavigateToUsers}>
-              <Text style={[styles.text]}>Users</Text>
-            </Touchable>
-          </View>
-          <Text style={[styles.text, styles.title]}>Chats</Text>
-          <ScrollView>
-            {
-                        chats.map(chat => (
-                          <Touchable
-                            key={chat._id}
-                            style={styles.rowChat}
-                            onPress={() => this.handleOpenChat(chat._id)}
-                          >
-                            <Text style={styles.text}>{chat._id}</Text>
-                          </Touchable>
-                        ))
-                    }
-          </ScrollView>
-        </View>
-      );
-    }
-}
-
+Chats.navigationOptions = {
+  header: null,
+};
 
 export default connect(
   state => ({

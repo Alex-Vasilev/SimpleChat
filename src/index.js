@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-
 import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 import App from './screens';
 import configureStore from './store';
-import { configureSocket } from './store/socket'
+import { configureSocket } from './store/socket';
+
 // import configureLocalization, { fetchLocalization } from './localization';
 
 // configureLocalization();
@@ -15,15 +15,14 @@ const store = configureStore();
 configureSocket(store);
 const persistor = persistStore(store);
 
-export default class Root extends PureComponent {
+// persistor.purge();
 
-  render() {
-    return (
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <App />
-        </PersistGate>
-      </Provider>
-    );
-  }
-}
+const Root = () => (
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>
+);
+
+export default Root;
