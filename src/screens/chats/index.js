@@ -46,7 +46,7 @@ const Chats = ({
                         style={styles.rowChat}
                         onPress={() => handleOpenChat(chat._id)}
                       >
-                        <Text style={styles.text}>{chat._id}</Text>
+                        <Text style={styles.text}>{chat.title}</Text>
                       </Touchable>
                     ))
                 }
@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.BLUE,
     flex: 1,
     paddingTop: 80,
     paddingHorizontal: 40,
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   text: {
-    color: COLORS.WHITE,
+    color: COLORS.BLUE,
   },
   title: {
     fontSize: 20,
@@ -92,6 +91,6 @@ const styles = StyleSheet.create({
   rowChat: {
     paddingVertical: 7,
     borderBottomWidth: 1,
-    borderColor: COLORS.WHITE,
+    borderColor: COLORS.BLUE,
   },
 });

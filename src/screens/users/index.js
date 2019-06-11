@@ -28,6 +28,8 @@ const Users = ({ users, onSearch, onChatCreate }) => {
         onChangeText={handleChange('name')}
         autoCapitalize="none"
         style={styles.input}
+        placeholder="Name"
+        placeholderTextColor={COLORS.BLUE}
       />
       <Touchable
         onPress={handleSubmit}
@@ -68,27 +70,28 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.RED,
+    // backgroundColor: COLORS.RED,
     paddingHorizontal: 40,
   },
   text: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: COLORS.WHITE,
+    color: COLORS.BLUE,
   },
   input: {
     height: 40,
     width: '100%',
-    borderColor: COLORS.TRANSPARENT,
+    borderColor: COLORS.BLUE,
+    borderBottomWidth: 1,
     backgroundColor: COLORS.WHITE,
     borderRadius: 10,
-    color: COLORS.BLACK,
+    color: COLORS.BLUE,
     textAlign: 'center',
     marginTop: 10,
   },
   button: {
     width: '75%',
-    backgroundColor: COLORS.WHITE,
+    backgroundColor: COLORS.BLUE,
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
@@ -96,18 +99,18 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   buttonText: {
-    color: COLORS.RED,
+    color: COLORS.WHITE,
     textAlign: 'center',
     fontSize: 15,
     fontWeight: 'bold',
   },
   userRow: {
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.WHITE,
+    borderBottomColor: COLORS.BLUE,
     width: '100%',
   },
   userName: {
-    color: COLORS.WHITE,
+    color: COLORS.BLUE,
     paddingVertical: 6,
   },
   usersContainer: {

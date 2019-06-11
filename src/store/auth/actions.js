@@ -31,10 +31,8 @@ export const auth = (name, password, isLogin) => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  // removeUserCredentials()
-  //   .then(() => {
   dispatch(removeUserInfo());
-  // })
+  dispatch(reset(ROUTES.LOGIN));
 };
 
 

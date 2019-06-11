@@ -1,6 +1,9 @@
 {
-  "AUTH": {
-    "PRIV": "Privacy policy",
-    "TERMS": "Terms of use"
+  "LOGIN": {
+    "TITLE": "Enter your name and password",
+    "LOGIN": "Login",
+    "REGISTER": "Register",
+    "TO_LOGIN": "Go to login",
+    "TO_REGISTER": "Go to registration"
   }
 }
