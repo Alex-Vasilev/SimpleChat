@@ -1,9 +1,20 @@
 {
   "LOGIN": {
-    "TITLE": "Enter your name and password",
+    "TITLE": "Enter your personal data",
     "LOGIN": "Login",
     "REGISTER": "Register",
     "TO_LOGIN": "Go to login",
-    "TO_REGISTER": "Go to registration"
-  }
+    "TO_REGISTER": "Go to registration",
+    "NAME": "Name",
+    "EMAIL": "Email",
+    "COUNTRY_CODE": "Country code",
+    "PHONE_NUMBER": "Phone number",
+    "PASSWORD": "Password"
+  },
+  "VERIFY": {
+    "TITLE": "Verification",
+    "REPEAT": "One more SMS",
+    "CODE": "SMS code"
+  },
+  "SUBMIT": "Submit"
 }

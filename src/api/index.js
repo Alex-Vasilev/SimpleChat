@@ -1,4 +1,4 @@
-import isPlainObject from 'lodash/isPlainObject';
+import isPlainObject from 'lodash-es/isPlainObject';
 import * as API from '../constants/api';
 
 
@@ -15,9 +15,7 @@ const api = {
       ? JSON.stringify(options.data)
       : options.data;
 
-    let fullUrl = `${API.DOMAIN}${url}`;
-
-
+    const fullUrl = `${API.DOMAIN}${url}`;
     return fetch(fullUrl, {
       ...options,
       body,
@@ -29,13 +27,13 @@ const api = {
         ...options.headers,
       },
     })
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
           return response.json();
         }
 
         throw response;
-      })
+      });
   },
 };
 
