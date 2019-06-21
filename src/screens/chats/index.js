@@ -45,7 +45,7 @@ const Chats = ({
               style={styles.rowChat}
               onPress={() => handleOpenChat(chat._id)}
             >
-              <Text style={styles.text}>{chat.title}</Text>
+              <Text style={styles.text}>{chat.createdAt}</Text>
             </Touchable>
           ))
         }

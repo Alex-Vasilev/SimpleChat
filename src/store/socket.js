@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-// import { setMessage } from './messages/actions';
+import { setMessage } from './messages/actions';
 import { updateUserChat } from './chats/actions';
 
 
@@ -28,6 +28,7 @@ export const runSocket = (token) => {
 
   socket.on('new_message', ([message]) => {
     store.dispatch(updateUserChat(message));
+    store.dispatch(setMessage(message));
   });
 };
 

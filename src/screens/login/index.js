@@ -1,5 +1,6 @@
 import React, { Fragment, PureComponent } from 'react';
 import { TextInput } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Text, Touchable, View } from '../../components';
 import i18n from '../../localization';
@@ -13,6 +14,7 @@ class Login extends PureComponent {
 
   state = {
     isLoginOption: true,
+    twoFAChecked: false,
   }
 
   handleChange = type => (value) => {
@@ -27,6 +29,7 @@ class Login extends PureComponent {
       email,
       countryCode,
       phoneNumber,
+      twoFAChecked,
     } = this.state;
     const { onAuth } = this.props;
 
@@ -37,6 +40,8 @@ class Login extends PureComponent {
       email,
       countryCode,
       phoneNumber,
+      isLoginOption,
+      twoFAChecked,
     );
   }
 
@@ -48,7 +53,7 @@ class Login extends PureComponent {
   }
 
   render() {
-    const { isLoginOption } = this.state;
+    const { isLoginOption, twoFAChecked } = this.state;
 
     return (
       <View style={styles.container}>
@@ -91,8 +96,7 @@ class Login extends PureComponent {
               placeholder={i18n.t('LOGIN.PHONE_NUMBER')}
             />
           </Fragment>
-        )
-        }
+        )}
         <TextInput
           onChangeText={this.handleChange('password')}
           secureTextEntry
@@ -118,6 +122,12 @@ class Login extends PureComponent {
             ? i18n.t('LOGIN.TO_REGISTER')
             : i18n.t('LOGIN.TO_LOGIN')}
         </Text>
+        <CheckBox
+          center
+          title="2 FA auth"
+          checked={twoFAChecked}
+          onPress={() => this.setState({ twoFAChecked: !twoFAChecked })}
+        />
       </View>
     );
   }
