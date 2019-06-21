@@ -1,13 +1,12 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Text, Touchable, View } from '../../components';
-import * as COLORS from '../../constants/colors';
 import * as ROUTES from '../../constants/routes';
+import { logout } from '../../store/auth/actions';
 import { setCurrentChatById } from '../../store/chats/actions';
 import { navigate } from '../../store/navigation/actions';
-import { logout } from '../../store/auth/actions';
-
+import styles from './styles';
 
 const Chats = ({
   chats,
@@ -40,16 +39,16 @@ const Chats = ({
       <Text style={[styles.text, styles.title]}>Chats</Text>
       <ScrollView>
         {
-                    chats.map(chat => (
-                      <Touchable
-                        key={chat._id}
-                        style={styles.rowChat}
-                        onPress={() => handleOpenChat(chat._id)}
-                      >
-                        <Text style={styles.text}>{chat.title}</Text>
-                      </Touchable>
-                    ))
-                }
+          chats.map(chat => (
+            <Touchable
+              key={chat._id}
+              style={styles.rowChat}
+              onPress={() => handleOpenChat(chat._id)}
+            >
+              <Text style={styles.text}>{chat.title}</Text>
+            </Touchable>
+          ))
+        }
       </ScrollView>
     </View>
   );
@@ -69,28 +68,3 @@ export default connect(
     onLogout: () => dispatch(logout()),
   }),
 )(Chats);
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    paddingTop: 80,
-    paddingHorizontal: 40,
-  },
-  header: {
-    width: '100%',
-    alignItems: 'flex-end',
-  },
-  text: {
-    color: COLORS.BLUE,
-  },
-  title: {
-    fontSize: 20,
-  },
-  rowChat: {
-    paddingVertical: 7,
-    borderBottomWidth: 1,
-    borderColor: COLORS.BLUE,
-  },
-});

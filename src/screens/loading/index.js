@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import * as COLORS from '../../constants/colors';
 import { initApplication } from '../../store/app/actions';
-
+import styles from './styles';
 
 const LoadingScreen = ({ onInitApplication }) => {
   useEffect(() => {
@@ -29,13 +28,3 @@ export default connect(
     onInitApplication: () => dispatch(initApplication()),
   }),
 )(LoadingScreen);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 1,
-    backgroundColor: COLORS.BLUE,
-  },
-});

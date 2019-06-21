@@ -18,20 +18,7 @@ const AppNavigator = createStackNavigator(
     [ROUTES.VERIFY]: Verify,
   },
   {
-    cardStyle: {
-      // backgroundColor: COLORS.WHITE,
-    },
     headerMode: 'none',
-    navigationOptions: {
-      headerStyle: {
-        // backgroundColor: COLORS.WHITE,
-      },
-      headerTitleStyle: {
-        marginHorizontal: 'auto',
-        fontFamily: 'Open Sans',
-        fontSize: 17,
-      },
-    },
   },
 );
 

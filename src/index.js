@@ -6,10 +6,6 @@ import App from './screens';
 import configureStore from './store';
 import { configureSocket } from './store/socket';
 
-// import configureLocalization, { fetchLocalization } from './localization';
-
-// configureLocalization();
-// fetchLocalization();
 
 const store = configureStore();
 configureSocket(store);
@@ -19,7 +15,7 @@ const persistor = persistStore(store);
 
 const Root = () => (
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>

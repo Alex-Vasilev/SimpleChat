@@ -24,7 +24,7 @@ export default function (state = initialState, action) {
     case UPDATE_CHAT:
       const chats = [...state.userChats];
       const idx = chats
-        .findIndex(item => item._id === action.payload.currentChatId);
+        .findIndex(({ _id }) => _id === action.payload.currentChatId);
       chats[idx].messages = [action.payload.message, ...chats[idx].messages];
 
       return {

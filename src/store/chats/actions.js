@@ -1,7 +1,6 @@
 import { createAction } from 'redux-actions';
 import { newChat } from '../../api/chat';
 import * as ROUTES from '../../constants/routes';
-// import { setMessages } from '../messages/actions';
 import { navigate } from '../navigation/actions';
 import { SET_CHAT, SET_CHATS, UPDATE_CHAT } from './types';
 

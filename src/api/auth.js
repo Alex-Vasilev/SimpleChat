@@ -2,27 +2,18 @@ import * as API from '../constants/api';
 import api from './index';
 
 
-export const auth = (
-  name,
-  password,
-  email,
-  countryCode,
-  phoneNumber,
-  isLogin,
-) => api.fetch(
-  isLogin ? API.LOGIN : API.REGISRATION,
-  null,
-  {
-    method: 'POST',
-    data: {
-      name,
-      password,
-      email,
-      countryCode,
-      phoneNumber,
+export const auth = (isLogin, ...args) => {
+  api.fetch(
+    isLogin ? API.LOGIN : API.REGISRATION,
+    null,
+    {
+      method: 'POST',
+      data: {
+        ...args,
+      },
     },
-  },
-);
+  );
+};
 
 export const sendSMS = (name) => {
   api.fetch(
@@ -46,6 +37,8 @@ export const verify = (name, token) => {
   );
 };
 
-export const logout = token => api.fetch(API.LOGOUT, token, {
-  method: 'GET',
-});
+export const logout = (token) => {
+  api.fetch(API.LOGOUT, token, {
+    method: 'GET',
+  });
+};
