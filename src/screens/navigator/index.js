@@ -5,33 +5,21 @@ import Chats from '../chats';
 import Loading from '../loading';
 import Login from '../login';
 import Users from '../users';
-
+import Verify from '../verify';
 
 
 const AppNavigator = createStackNavigator(
-    {
-        [ROUTES.LOADING]: Loading,
-        [ROUTES.LOGIN]: Login,
-        [ROUTES.CHAT]: Chat,
-        [ROUTES.USERS]: Users,
-        [ROUTES.CHATS]: Chats
-    },
-    {
-        // cardStyle: {
-        //     backgroundColor: COLORS.WHITE,
-        // },
-        // headerMode: 'none',
-        navigationOptions: {
-            // headerStyle: {
-            //     backgroundColor: COLORS.WHITE,
-            // },
-            // headerTitleStyle: {
-            //     marginHorizontal: 'auto',
-            //     fontFamily: 'Open Sans',
-            //     fontSize: 17,
-            // },
-        },
-    }
+  {
+    [ROUTES.LOADING]: Loading,
+    [ROUTES.LOGIN]: Login,
+    [ROUTES.CHAT]: Chat,
+    [ROUTES.USERS]: Users,
+    [ROUTES.CHATS]: Chats,
+    [ROUTES.VERIFY]: Verify,
+  },
+  {
+    headerMode: 'none',
+  },
 );
 
 export default AppNavigator;

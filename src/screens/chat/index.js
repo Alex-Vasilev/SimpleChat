@@ -1,57 +1,33 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { connect } from 'react-redux';
 import { sendMessage } from '../../store/socket';
 
 
-class Chat extends PureComponent {
-    state = {
-      messages: [],
-    }
+const Chat = ({ messages, user, chat: { _id: chatId } }) => {
+  const handleSend = ({ text, createdAt }) => {
+    sendMessage({
+      chatId,
+      text,
+      createdAt,
+      user,
+    });
+  };
 
-    static getDerivedStateFromProps(props, state) {
-      if (state.messages !== props.messages) {
-        return {
-          messages: props.messages,
-        };
-      }
-      return null;
-    }
-
-
-    handleSend = ({ text, createdAt }) => {
-      const {
-        chat: { _id: chatId },
-        user,
-      } = this.props;
-
-      sendMessage({
-        chatId,
-        text,
-        createdAt,
-        user,
-      });
-    }
-
-    render() {
-      const { user: { _id } } = this.props;
-      const { messages } = this.state;
-
-      return (
-        <GiftedChat
-          messages={messages}
-                // inverted={false}
-          user={{
-            _id,
-          }}
-          onSend={messages => this.handleSend(messages[0])}
-        />
-      );
-    }
-}
+  return (
+    <GiftedChat
+      messages={messages}
+      user={{
+        _id: user._id,
+      }}
+      onSend={messages => handleSend(messages[0])}
+    />
+  );
+};
 
 export default connect(state => ({
-  messages: state.messages.incomingMessages,
+  messages: state.chats.currentChat.messages,
   user: state.user,
   chat: state.chats.currentChat,
+  state,
 }))(Chat);
