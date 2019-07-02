@@ -9,9 +9,6 @@ import { removeUserInfo, setUserInfo } from '../user/actions';
 
 export const initAuth = () => (dispatch, getState) => {
   const { _token } = getState().user;
-  // const s = getState();
-  // // console.log(s);
-  // // dispatch(removeUserInfo())
   runSocket(_token);
   dispatch(reset(ROUTES.CHATS));
 };

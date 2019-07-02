@@ -1,7 +1,7 @@
 import { self } from 'react-native-threads';
 import * as JsEncryptModule from 'jsencrypt';
 
-let crypt = null;
+let crypt = new JsEncryptModule.JSEncrypt({ default_key_size: 2056 });
 let privateKey = null;
 
 function generateKeypair() {

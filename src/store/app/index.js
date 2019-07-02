@@ -1,7 +1,8 @@
-import { APP_STATE_CHANGE } from './types';
+import { APP_STATE_CHANGE, SET_PENDING } from './types';
 
 const initialState = {
   appState: null,
+  pending: false,
 };
 
 export default function (state = initialState, action) {
@@ -11,7 +12,13 @@ export default function (state = initialState, action) {
         ...state,
         appState: action.payload,
       };
-  }
 
-  return state;
+    case SET_PENDING:
+      return {
+        ...state,
+        pending: action.payload,
+      };
+
+    default: return state;
+  }
 }
