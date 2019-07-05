@@ -1,10 +1,12 @@
 import { createAction } from 'redux-actions';
-import { newChat } from '../../api/chat';
+import { newChat, addUser } from '../../api/chat';
 import { generateKeypair } from '../../utils/crypt';
 import { setPending } from '../app/actions';
 import { setPrivateKey, setPublicKey } from '../messages/actions';
 import { getCurrentChat, getDestinationKeys } from '../socket';
 import { SET_CHAT, SET_CHATS, UPDATE_CHAT } from './types';
+import { navigate } from '../navigation/actions';
+import * as ROUTES from '../../constants/routes';
 
 
 const setChatAction = createAction(SET_CHAT);
@@ -56,4 +58,17 @@ export const chatCreate = recieverId => (dispatch, getState) => {
 
 export const updateUserChat = message => (dispatch) => {
   dispatch(updateChatAction(message));
+};
+
+export const navigateToAddUserToChat = chatId => (dispatch) => {
+  dispatch(navigate(ROUTES.USERS, { chatId, addindUser: true }));
+};
+
+export const addUserToChat = (recieverId, chatId) => (dispatch, getState) => {
+  const { _token } = getState().user;
+  addUser(recieverId, chatId, _token)
+    .then(() => {
+      dispatch(navigate(ROUTES.CHAT));
+    })
+    .catch(() => console.log('err'));
 };

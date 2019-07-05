@@ -5,6 +5,7 @@ import { reset } from '../navigation/actions';
 import { initAuth } from '../auth/actions';
 import { APP_STATE_CHANGE, SET_PENDING } from './types';
 
+
 const appStateChangeAction = createAction(APP_STATE_CHANGE);
 const setPendingAction = createAction(SET_PENDING);
 
@@ -20,6 +21,7 @@ export const setPending = bool => (dispatch) => {
 const runApp = () => (dispatch, getState) => {
   const { user } = getState();
 
+  dispatch(setPending(false));
   if (Object.keys(user).length) {
     dispatch(initAuth());
   } else {

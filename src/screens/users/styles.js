@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 40,
+    padding: 40,
   },
   text: {
     fontSize: 20,
@@ -43,10 +43,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.BLUE,
     width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 6,
+    marginVertical: 6,
+  },
+  infoSection: {
+    flexDirection: 'row',
+  },
+  online: {
+    marginLeft: 20,
   },
   userName: {
     color: COLORS.BLUE,
-    paddingVertical: 6,
   },
   usersContainer: {
     width: '100%',

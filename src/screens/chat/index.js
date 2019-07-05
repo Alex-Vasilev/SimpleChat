@@ -1,11 +1,12 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
-// import { Thread } from 'react-native-threads';
 import { connect } from 'react-redux';
-// import { setPublicKey } from '../../store/messages/actions';
 import { sendMessage } from '../../store/socket';
 import { encrypt } from '../../utils/crypt';
+import styles from './styles';
+import { Touchable } from '../../components';
+import { navigateToAddUserToChat } from '../../store/chats/actions';
 
 
 const Chat = ({
@@ -13,10 +14,8 @@ const Chat = ({
   user,
   chat: { _id: chatId },
   destinationKeys,
+  onNavigateToAddUserToChat,
 }) => {
-  // const [pending, setPending] = useState(true);
-
-
   const handleSend = ({ text, createdAt }) => {
     Promise.resolve(encrypt(text, destinationKeys[chatId]))
       .then((res) => {
@@ -29,8 +28,22 @@ const Chat = ({
       });
   };
 
+  const handleAddUser = () => {
+    onNavigateToAddUserToChat(chatId);
+  };
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center' }}>
+    <View style={styles.container}>
+      <View style={styles.chatHeader}>
+        <Touchable
+          style={{ backgroundColor: 'white', padding: 10, borderRadius: 10 }}
+          onPress={handleAddUser}
+        >
+          <Text>
+            Add user to conversation
+          </Text>
+        </Touchable>
+      </View>
       {/* {
         pending
           ? <ActivityIndicator size="large" color="#0000ff" /> */}
@@ -60,4 +73,7 @@ export default connect(
       destinationKeys: (messages.destinationKeys && messages.destinationKeys[user._id]) || {},
     };
   },
+  dispatch => ({
+    onNavigateToAddUserToChat: chatId => dispatch(navigateToAddUserToChat(chatId)),
+  }),
 )(Chat);

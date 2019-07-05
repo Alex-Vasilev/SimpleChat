@@ -14,7 +14,7 @@ class Login extends PureComponent {
 
   state = {
     isLoginOption: true,
-    twoFAChecked: false,
+    isTwoFA: false,
   }
 
   handleChange = type => (value) => {
@@ -28,8 +28,8 @@ class Login extends PureComponent {
       password,
       email,
       countryCode,
-      phoneNumber,
-      twoFAChecked,
+      phone,
+      isTwoFA,
     } = this.state;
     const { onAuth } = this.props;
 
@@ -39,9 +39,8 @@ class Login extends PureComponent {
       password,
       email,
       countryCode,
-      phoneNumber,
-      isLoginOption,
-      twoFAChecked,
+      phone,
+      isTwoFA,
     );
   }
 
@@ -53,7 +52,7 @@ class Login extends PureComponent {
   }
 
   render() {
-    const { isLoginOption, twoFAChecked } = this.state;
+    const { isLoginOption, isTwoFA } = this.state;
 
     return (
       <View style={styles.container}>
@@ -87,7 +86,7 @@ class Login extends PureComponent {
               placeholder={i18n.t('LOGIN.COUNTRY_CODE')}
             />
             <TextInput
-              onChangeText={this.handleChange('phoneNumber')}
+              onChangeText={this.handleChange('phone')}
               autoCapitalize="none"
               returnKeyType="next"
               style={styles.input}
@@ -125,8 +124,8 @@ class Login extends PureComponent {
         <CheckBox
           center
           title="2 FA auth"
-          checked={twoFAChecked}
-          onPress={() => this.setState({ twoFAChecked: !twoFAChecked })}
+          checked={isTwoFA}
+          onPress={() => this.setState({ isTwoFA: !isTwoFA })}
         />
       </View>
     );

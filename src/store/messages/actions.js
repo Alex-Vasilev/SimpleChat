@@ -23,10 +23,6 @@ export const setMessage = message => (dispatch) => {
   dispatch(setNewMessageAction(message));
 };
 
-export const getWebWorkerResponse = () => () => {
-  // thread.postMessage(messagePayload);
-};
-
 export const setPublicKey = (chatId, key) => (dispatch, getState) => {
   const { _id } = getState().user;
   dispatch(setKeyPublicAction({ chatId, key, _id }));

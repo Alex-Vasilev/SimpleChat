@@ -14,5 +14,6 @@ export const VERIFY = `${AUTH}/verify`;
 export const REGISRATION = `${AUTH}/registration`;
 export const CHATS = '/chat';
 export const NEW_CHAT = `${CHATS}/new`;
+export const ADD_USER_TO_CHAT = `${CHATS}/add_user`;
 export const SEARCH = '/search';
 export const REFRESH_TOKEN = '/token';
