@@ -27,38 +27,44 @@ export default function (state = initialState, action) {
     //     ...state,
     //     incomingMessages: [action.payload, ...state.incomingMessages],
     //   };
-    // TODO: need to improve
+
     case SET_PUBLIC_KEY:
+      const publicKeys = (state.publicKeys
+        && state.publicKeys[action.payload._id]) || {};
       return {
         ...state,
         publicKeys: {
           ...state.publicKeys,
           [action.payload._id]: {
-            ...state.publicKeys[action.payload._id],
+            ...publicKeys,
             [action.payload.chatId]: action.payload.key,
           },
         },
       };
 
     case SET_PRIVATE_KEY:
+      const privateKeys = (state.privateKeys
+        && state.privateKeys[action.payload._id]) || {};
       return {
         ...state,
         privateKeys: {
           ...state.privateKeys,
           [action.payload._id]: {
-            ...state.privateKeys[action.payload._id],
+            ...privateKeys,
             [action.payload.chatId]: action.payload.key,
           },
         },
       };
 
     case SET_DESTINATION_KEY:
+      const destinationKeys = (state.destinationKeys
+        && state.destinationKeys[action.payload._id]) || {};
       return {
         ...state,
         destinationKeys: {
           ...state.destinationKeys,
           [action.payload._id]: {
-            ...state.destinationKeys[action.payload._id],
+            ...destinationKeys,
             [action.payload.chatId]: action.payload.key,
           },
         },

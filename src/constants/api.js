@@ -1,7 +1,8 @@
 // import { Platform } from 'react-native';
 
-export const DOMAIN = 'http://172.18.200.147:5000';
-// TODO : need to improve
+export const DOMAIN = 'http://avdevelop.com';
+// export const DOMAIN = 'http://172.18.200.147:5000';
+
 // Platform.OS === 'android'
 //     ? 'http://172.18.200.147:5000' :
 //     'http://localhost:5000';

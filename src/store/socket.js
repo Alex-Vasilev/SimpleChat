@@ -80,8 +80,9 @@ export const runSocket = (token) => {
     }
   });
 
-  socket.on('new_message', (message) => {
+  socket.on('new_message', (msg) => {
     const { _id } = store.getState().user;
+    const message = msg[_id];
     const privateKey = store
       .getState().messages.privateKeys[_id][message.chatId];
 
