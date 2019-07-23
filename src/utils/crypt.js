@@ -1,20 +1,13 @@
-import * as JsEncryptModule from 'jsencrypt';
-
-const crypt = new JsEncryptModule.JSEncrypt({ default_key_size: 2056 });
+import { RSA } from 'react-native-rsa-native';
 
 export function generateKeypair() {
-  return {
-    publicKey: crypt.getPublicKey(),
-    privateKey: crypt.getPrivateKey(),
-  };
+  return RSA.generateKeys(2056);
 }
 
 export function encrypt(content, publicKey) {
-  crypt.setKey(publicKey);
-  return crypt.encrypt(content);
+  return RSA.encrypt(content, publicKey);
 }
 
 export function decrypt(content, privateKey) {
-  crypt.setKey(privateKey);
-  return crypt.decrypt(content);
+  return RSA.decrypt(content, privateKey);
 }

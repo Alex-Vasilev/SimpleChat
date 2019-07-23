@@ -1,26 +1,16 @@
-import NetInfo from "@react-native-community/netinfo";
-import PropTypes from 'prop-types';
+import NetInfo from '@react-native-community/netinfo';
 import React, { PureComponent } from 'react';
 import { StyleSheet } from 'react-native';
 import { createReduxContainer } from 'react-navigation-redux-helpers';
 import { connect } from 'react-redux';
-import { View } from '../components';
-import { default as PureNavigator } from './navigator';
 import _ from 'lodash-es';
-
+import { View } from '../components';
+import PureNavigator from './navigator';
 
 
 let AppNavigator;
 
 class App extends PureComponent {
-  static propTypes = {
-    navigation: PropTypes.shape({
-      index: PropTypes.number.isRequired,
-      routes: PropTypes.array.isRequired,
-    }),
-    dispatch: PropTypes.func.isRequired
-  };
-
   constructor() {
     super();
     this.handleConnectionChangeDebounced = _.debounce(this.handleConnectionChange, 1000);
@@ -31,25 +21,28 @@ class App extends PureComponent {
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectionChangeDebounced);
 
     NetInfo.isConnected.fetch().done(
-      (isConnected) => { this.setState({ status: isConnected }); }
+      (isConnected) => { this.setState({ status: isConnected }); },
     );
-  }
-
-  componentWillUnmount() {
-    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChangeDebounced);
-  }
-
-  handleConnectionChange = (isConnected) => {
-    // TODO: need chek on device
-    this.setState({ status: isConnected }, () => console.log(`is connected: ${this.state.status}`));
   }
 
   componentDidUpdate(prevProps) {
     const { appState } = this.props;
 
-    if (appState != 'active' && prevProps.appState == 'active') {
+    if (appState !== 'active' && prevProps.appState === 'active') {
       // TODO: implement logic
     }
+  }
+
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener(
+      'connectionChange',
+      this.handleConnectionChangeDebounced,
+    );
+  }
+
+  handleConnectionChange = (isConnected) => {
+    // TODO: need chek on device
+    this.setState({ status: isConnected }, () => console.warn('is connected: '));
   }
 
   render() {
@@ -68,7 +61,7 @@ export default connect(
     navigation: state.navigation,
   }),
   dispatch => ({
-    dispatch
+    dispatch,
   }),
 )(App);
 

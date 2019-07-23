@@ -30,9 +30,9 @@ export const setCurrentChatById = id => (dispatch, getState) => {
   } else {
     Promise.resolve(generateKeypair())
       .then((keys) => {
-        dispatch(setPublicKey(currentChat._id, keys.publicKey));
-        dispatch(setPrivateKey(currentChat._id, keys.privateKey));
-        getDestinationKeys(currentChat._id, keys.publicKey);
+        dispatch(setPublicKey(currentChat._id, keys.public));
+        dispatch(setPrivateKey(currentChat._id, keys.private));
+        getDestinationKeys(currentChat._id, keys.public);
       });
   }
 };
@@ -40,14 +40,13 @@ export const setCurrentChatById = id => (dispatch, getState) => {
 export const chatCreate = recieverId => (dispatch, getState) => {
   const { _token } = getState().user;
   dispatch(setPending(true));
-
   newChat(recieverId, _token)
     .then((chat) => {
       Promise.resolve(generateKeypair())
         .then((keys) => {
-          dispatch(setPublicKey(chat._id, keys.publicKey));
-          dispatch(setPrivateKey(chat._id, keys.privateKey));
-          getDestinationKeys(chat._id, keys.publicKey);
+          dispatch(setPublicKey(chat._id, keys.public));
+          dispatch(setPrivateKey(chat._id, keys.private));
+          getDestinationKeys(chat._id, keys.public);
         });
     })
     .catch(() => {
@@ -70,5 +69,5 @@ export const addUserToChat = (recieverId, chatId) => (dispatch, getState) => {
     .then(() => {
       dispatch(navigate(ROUTES.CHAT));
     })
-    .catch(() => console.log('err'));
+    .catch(() => console.warn('err'));
 };

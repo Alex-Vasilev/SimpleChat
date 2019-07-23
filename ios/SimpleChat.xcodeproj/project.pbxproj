@@ -43,6 +43,7 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		4DB6230EDD534EB693BF96B6 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1203514223BA43058FEE30E4 /* libRNVectorIcons.a */; };
 		50C8A3FE6B3B47C0823455B1 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 795D3757B74A4C689D5C61C2 /* FontAwesome5_Regular.ttf */; };
+		7F02DA9B4161485A87DE5EED /* libRNRSA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38862CDED0D440C7BEC8EC1F /* libRNRSA.a */; };
 		8272B61A6F884378B47BBC74 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B09F41A20FEA4C50B16BDC80 /* Entypo.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		A1DF907EAD4D47FAAA3C84D1 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E46C1C9CD9C1428198CAD85E /* Foundation.ttf */; };
@@ -177,6 +178,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 2D2A28471D9B043800D4039D;
 			remoteInfo = "RNLocalize-tvOS";
+		};
+		2758EA6822D60E99009F8534 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63574D577E2248A082B44C4F /* RNRSA.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BF40FFBD1F05EC4000DC4E95;
+			remoteInfo = RNRSA;
 		};
 		27FBD4EC22957716000B1102 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -431,12 +439,14 @@
 		2D02E47B1E0B4A5D006451C7 /* SimpleChat-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimpleChat-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* SimpleChat-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SimpleChat-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		38862CDED0D440C7BEC8EC1F /* libRNRSA.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRSA.a; sourceTree = "<group>"; };
 		3E07E39EBE7841259A79C899 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		448CC93A9F72456A83234E05 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		47AABBD109684A77A6BEB798 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		4AA09F3665C3477B8894A48A /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		4E10C7E186DD4CD799CAE950 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		63574D577E2248A082B44C4F /* RNRSA.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNRSA.xcodeproj; path = "../node_modules/react-native-rsa-native/ios/RNRSA.xcodeproj"; sourceTree = "<group>"; };
 		68A89FE4418C401198FF7AB0 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		6CC77DEA130C445E81350EBF /* libRNCNetInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCNetInfo.a; sourceTree = "<group>"; };
 		6DFA06480F9C4789BA606ED3 /* RNThread.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNThread.xcodeproj; path = "../node_modules/react-native-threads/ios/RNThread.xcodeproj"; sourceTree = "<group>"; };
@@ -493,6 +503,7 @@
 				C5116284B703469CA7DB1F7F /* libRNLocalize.a in Frameworks */,
 				4DB6230EDD534EB693BF96B6 /* libRNVectorIcons.a in Frameworks */,
 				2CAB70FFD7ED4D16850E8984 /* libRNThread.a in Frameworks */,
+				7F02DA9B4161485A87DE5EED /* libRNRSA.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,6 +680,7 @@
 				1203514223BA43058FEE30E4 /* libRNVectorIcons.a */,
 				BD46DC1A67AF42CCA38B3BE8 /* libRNVectorIcons-tvOS.a */,
 				1B0CDD050B4F4FB68B96D407 /* libRNThread.a */,
+				38862CDED0D440C7BEC8EC1F /* libRNRSA.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -687,6 +699,14 @@
 			children = (
 				273A3D5122AFEC1100158C89 /* libRNLocalize.a */,
 				273A3D5322AFEC1100158C89 /* libRNLocalize-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2758EA6522D60E99009F8534 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2758EA6922D60E99009F8534 /* libRNRSA.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -748,6 +768,7 @@
 				D358A51ACC9D4A05B834FC41 /* RNLocalize.xcodeproj */,
 				4AA09F3665C3477B8894A48A /* RNVectorIcons.xcodeproj */,
 				6DFA06480F9C4789BA606ED3 /* RNThread.xcodeproj */,
+				63574D577E2248A082B44C4F /* RNRSA.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -997,6 +1018,10 @@
 					ProjectRef = D358A51ACC9D4A05B834FC41 /* RNLocalize.xcodeproj */;
 				},
 				{
+					ProductGroup = 2758EA6522D60E99009F8534 /* Products */;
+					ProjectRef = 63574D577E2248A082B44C4F /* RNRSA.xcodeproj */;
+				},
+				{
 					ProductGroup = 2717266722BB7AF300B22F26 /* Products */;
 					ProjectRef = 6DFA06480F9C4789BA606ED3 /* RNThread.xcodeproj */;
 				},
@@ -1119,6 +1144,13 @@
 			fileType = archive.ar;
 			path = "libRNLocalize-tvOS.a";
 			remoteRef = 273A3D5222AFEC1100158C89 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2758EA6922D60E99009F8534 /* libRNRSA.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNRSA.a;
+			remoteRef = 2758EA6822D60E99009F8534 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		27FBD4ED22957716000B1102 /* libjsi.a */ = {
@@ -1498,12 +1530,14 @@
 					"$(SRCROOT)/../node_modules/react-native-localize/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-threads/ios",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 				);
 				INFOPLIST_FILE = SimpleChatTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1534,12 +1568,14 @@
 					"$(SRCROOT)/../node_modules/react-native-localize/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-threads/ios",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 				);
 				INFOPLIST_FILE = SimpleChatTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1573,6 +1609,7 @@
 					"$(SRCROOT)/../node_modules/react-native-localize/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-threads/ios",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 				);
 				INFOPLIST_FILE = SimpleChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1602,6 +1639,7 @@
 					"$(SRCROOT)/../node_modules/react-native-localize/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-threads/ios",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 				);
 				INFOPLIST_FILE = SimpleChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1636,11 +1674,13 @@
 					"$(SRCROOT)/../node_modules/react-native-localize/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-threads/ios",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 				);
 				INFOPLIST_FILE = "SimpleChat-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1680,11 +1720,13 @@
 					"$(SRCROOT)/../node_modules/react-native-localize/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-threads/ios",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 				);
 				INFOPLIST_FILE = "SimpleChat-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1722,11 +1764,13 @@
 					"$(SRCROOT)/../node_modules/react-native-localize/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-threads/ios",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 				);
 				INFOPLIST_FILE = "SimpleChat-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1764,11 +1808,13 @@
 					"$(SRCROOT)/../node_modules/react-native-localize/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-threads/ios",
+					"$(SRCROOT)/../node_modules/react-native-rsa-native/ios",
 				);
 				INFOPLIST_FILE = "SimpleChat-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
