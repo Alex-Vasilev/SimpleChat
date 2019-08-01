@@ -9,19 +9,29 @@ import { removeUserInfo, setUserInfo } from '../user/actions';
 
 export const initAuth = () => (dispatch, getState) => {
   const { _token } = getState().user;
-
-  // dispatch(removeUserInfo())
   runSocket(_token);
   dispatch(reset(ROUTES.CHATS));
 };
 
 export const auth = (...args) => (dispatch) => {
+  const twoFAChecked = args[args.length - 1];
+
   getUserCredentials(...args)
     .then((res) => {
       if (res.success) {
-        dispatch(setUserInfo(res));
-        dispatch(navigate(ROUTES.VERIFY));
-        dispatch(sendVerificationSMS());
+        if (twoFAChecked) {
+          dispatch(setUserInfo(res));
+          dispatch(navigate(ROUTES.VERIFY));
+          dispatch(sendVerificationSMS());
+        } else {
+          Promise.all([
+            dispatch(setUserInfo(res)),
+            dispatch(setChats(res.chats)),
+          ])
+            .then(() => {
+              dispatch(initAuth());
+            });
+        }
       }
     });
 };

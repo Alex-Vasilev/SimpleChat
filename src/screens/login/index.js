@@ -1,5 +1,6 @@
 import React, { Fragment, PureComponent } from 'react';
 import { TextInput } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Text, Touchable, View } from '../../components';
 import i18n from '../../localization';
@@ -13,6 +14,7 @@ class Login extends PureComponent {
 
   state = {
     isLoginOption: true,
+    isTwoFA: false,
   }
 
   handleChange = type => (value) => {
@@ -26,7 +28,8 @@ class Login extends PureComponent {
       password,
       email,
       countryCode,
-      phoneNumber,
+      phone,
+      isTwoFA,
     } = this.state;
     const { onAuth } = this.props;
 
@@ -36,7 +39,8 @@ class Login extends PureComponent {
       password,
       email,
       countryCode,
-      phoneNumber,
+      phone,
+      isTwoFA,
     );
   }
 
@@ -48,7 +52,7 @@ class Login extends PureComponent {
   }
 
   render() {
-    const { isLoginOption } = this.state;
+    const { isLoginOption, isTwoFA } = this.state;
 
     return (
       <View style={styles.container}>
@@ -82,7 +86,7 @@ class Login extends PureComponent {
               placeholder={i18n.t('LOGIN.COUNTRY_CODE')}
             />
             <TextInput
-              onChangeText={this.handleChange('phoneNumber')}
+              onChangeText={this.handleChange('phone')}
               autoCapitalize="none"
               returnKeyType="next"
               style={styles.input}
@@ -91,8 +95,7 @@ class Login extends PureComponent {
               placeholder={i18n.t('LOGIN.PHONE_NUMBER')}
             />
           </Fragment>
-        )
-        }
+        )}
         <TextInput
           onChangeText={this.handleChange('password')}
           secureTextEntry
@@ -118,6 +121,12 @@ class Login extends PureComponent {
             ? i18n.t('LOGIN.TO_REGISTER')
             : i18n.t('LOGIN.TO_LOGIN')}
         </Text>
+        <CheckBox
+          center
+          title="2 FA auth"
+          checked={isTwoFA}
+          onPress={() => this.setState({ isTwoFA: !isTwoFA })}
+        />
       </View>
     );
   }

@@ -1,19 +1,20 @@
 import { createAction } from 'redux-actions';
-import { newChat } from '../../api/chat';
-import * as ROUTES from '../../constants/routes';
-import { navigate } from '../navigation/actions';
+import { newChat, addUser } from '../../api/chat';
+import { generateKeypair } from '../../utils/crypt';
+import { setPending } from '../app/actions';
+import { setPrivateKey, setPublicKey } from '../messages/actions';
+import { getCurrentChat, getDestinationKeys } from '../socket';
 import { SET_CHAT, SET_CHATS, UPDATE_CHAT } from './types';
+import { navigate } from '../navigation/actions';
+import * as ROUTES from '../../constants/routes';
 
 
 const setChatAction = createAction(SET_CHAT);
 const setChatsAction = createAction(SET_CHATS);
 const updateChatAction = createAction(UPDATE_CHAT);
 
-
 export const setChat = chat => (dispatch) => {
   dispatch(setChatAction(chat));
-  // dispatch(setMessages(chat.messages));
-  dispatch(navigate(ROUTES.CHAT));
 };
 
 export const setChats = chats => (dispatch) => {
@@ -22,18 +23,31 @@ export const setChats = chats => (dispatch) => {
 
 export const setCurrentChatById = id => (dispatch, getState) => {
   const currentChat = getState().chats.userChats.find(item => item._id === id);
-  dispatch(setChat(currentChat));
+  const { _id } = getState().user;
+  dispatch(setPending(true));
+  if (currentChat.userKeys[_id]) {
+    getCurrentChat(currentChat._id);
+  } else {
+    Promise.resolve(generateKeypair())
+      .then((keys) => {
+        dispatch(setPublicKey(currentChat._id, keys.public));
+        dispatch(setPrivateKey(currentChat._id, keys.private));
+        getDestinationKeys(currentChat._id, keys.public);
+      });
+  }
 };
 
 export const chatCreate = recieverId => (dispatch, getState) => {
   const { _token } = getState().user;
-
+  dispatch(setPending(true));
   newChat(recieverId, _token)
     .then((chat) => {
-      const { userChats } = getState().chats;
-      const updatedChats = [...userChats, chat];
-      dispatch(setChat(chat));
-      dispatch(setChats(updatedChats));
+      Promise.resolve(generateKeypair())
+        .then((keys) => {
+          dispatch(setPublicKey(chat._id, keys.public));
+          dispatch(setPrivateKey(chat._id, keys.private));
+          getDestinationKeys(chat._id, keys.public);
+        });
     })
     .catch(() => {
       dispatch(setChat({}));
@@ -41,7 +55,19 @@ export const chatCreate = recieverId => (dispatch, getState) => {
     });
 };
 
-export const updateUserChat = message => (dispatch, getState) => {
-  const currentChatId = getState().chats.currentChat._id;
-  dispatch(updateChatAction({ currentChatId, message }));
+export const updateUserChat = message => (dispatch) => {
+  dispatch(updateChatAction(message));
+};
+
+export const navigateToAddUserToChat = chatId => (dispatch) => {
+  dispatch(navigate(ROUTES.USERS, { chatId, addindUser: true }));
+};
+
+export const addUserToChat = (recieverId, chatId) => (dispatch, getState) => {
+  const { _token } = getState().user;
+  addUser(recieverId, chatId, _token)
+    .then(() => {
+      dispatch(navigate(ROUTES.CHAT));
+    })
+    .catch(() => console.warn('err'));
 };
